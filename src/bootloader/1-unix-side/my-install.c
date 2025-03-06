@@ -21,7 +21,28 @@
 #include "libunix.h"
 #include "put-code.h"
 
+#include <stdlib.h>
+
 static char *progname = 0;
+
+int is_integer(const char *str) {
+    // Check for an empty string
+    if (str == NULL || *str == '\0') {
+        return 0;
+    }
+    // Handle negative numbers
+    if (*str == '-') {
+        str++;  // Skip the minus sign
+    }
+    // Check if all characters are digits
+    while (*str != '\0') {
+        if (!isdigit(*str)) {
+            return 0;  // Not an integer if any non-digit character is found
+        }
+        str++;
+    }
+    return 1;  // It's a valid integer
+}
 
 static void usage(const char *msg, ...) {
     va_list args;
@@ -72,8 +93,19 @@ int main(int argc, char *argv[]) {
     // we do manual option parsing to make things a bit more obvious.
     // you might rewrite using getopt().
     progname = argv[0];
+    int num_pis = 0;
     for(int i = 1; i < argc; i++) {
-        if(strcmp(argv[i], "--trace-control") == 0)  {
+        if (is_integer(argv[i])) {
+            char *endptr;
+            long int value = strtol(argv[i], &endptr, 10);
+
+            // Check if strtol failed to convert the string to an integer
+            if (*endptr != '\0') {
+                sys_die(main, "Argument %s is not a valid integer", argv[i]);
+            }
+            num_pis = value;
+            printf("Argument %s is a valid integer: %ld\n", argv[i], value);
+        } else if(strcmp(argv[i], "--trace-control") == 0)  {
             trace_p = TRACE_CONTROL_ONLY;
         } else if(strcmp(argv[i], "--trace-all") == 0)  {
             trace_p = TRACE_ALL;
@@ -115,51 +147,58 @@ int main(int argc, char *argv[]) {
     if(!pi_prog)
         usage("no pi program\n");
 
-    // 1. get the name of the ttyUSB.
-    if(!dev_name) {
-        dev_name = find_ttyusb_last();
-        if(!dev_name)
+    PiDevice devices[num_pis];
+    for (int i = 0; i < num_pis; i++) {
+        dev_name = find_ttyusb_i(i);
+        if (!dev_name)
             panic("didn't find a device\n");
-    }
-    debug_output("done with options: dev name=<%s>, pi-prog=<%s>, trace=%d\n", 
+        debug_output("done with options: dev name=<%s>, pi-prog=<%s>, trace=%d\n", 
             dev_name, pi_prog, trace_p);
 
-    if(exec_argv)
-        argv_print("BOOT: --exec argv:", exec_argv);
+        if(exec_argv)
+            argv_print("BOOT: --exec argv:", exec_argv);
 
-    // 2. open the ttyUSB in 115200, 8n1 mode
-    int tty = open_tty(dev_name);
-    if(tty < 0)
-        panic("can't open tty <%s>\n", dev_name);
+        // 2. open the ttyUSB in 115200, 8n1 mode
+        int tty = open_tty(dev_name);
+        if(tty < 0)
+            panic("can't open tty <%s>\n", dev_name);
 
-    // timeout is in tenths of a second.  tuning this can speed up
-    // checking.
-    //
-    // if you are on linux you can shrink down the <2*8> timeout
-    // threshold.  if your my-install isn't reseting when used 
-    // during checkig, it's likely due to this timeout being too
-    // small.
-    double timeout_tenths = 2*5;
-    int fd = set_tty_to_8n1(tty, baud_rate, timeout_tenths);
-    if(fd < 0)
-        panic("could not set tty: <%s>\n", dev_name);
+        // timeout is in tenths of a second.  tuning this can speed up
+        // checking.
+        //
+        // if you are on linux you can shrink down the <2*8> timeout
+        // threshold.  if your my-install isn't reseting when used 
+        // during checkig, it's likely due to this timeout being too
+        // small.
+        double timeout_tenths = 2*5;
+        int fd = set_tty_to_8n1(tty, baud_rate, timeout_tenths);
+        if(fd < 0)
+            panic("could not set tty: <%s>\n", dev_name);
 
-    // 3. read in program [probably should just make a <file_size>
-    //    call and then shard out the pieces].
-	unsigned nbytes;
-    uint8_t *code = read_file(&nbytes, pi_prog);
+        // 3. read in program [probably should just make a <file_size>
+        //    call and then shard out the pieces].
+        unsigned nbytes;
+        uint8_t *code = read_file(&nbytes, pi_prog);
 
-    // 4. let's send it!
-	debug_output("%s: tty-usb=<%s> program=<%s>: about to boot\n", 
-                progname, dev_name, pi_prog);
-    simple_boot(fd, boot_addr, code, nbytes);
+        // 4. let's send it!
+        debug_output("%s: tty-usb=<%s> program=<%s>: about to boot\n", 
+                    progname, dev_name, pi_prog);
+        simple_boot(fd, boot_addr, code, nbytes);
+
+        devices[i].pi_fd = fd;
+        devices[i].portname = dev_name;
+        output("Found %s with fd: %d\n", dev_name, fd);
+    }    
+
+
 
     // 5. echo output from pi
     if(!exec_argv)
-        pi_echo(0, fd, dev_name);
+        // pi_echo(0, fd, dev_name);
+        pi_echo(0, devices, num_pis);
     else {
         todo("not handling exec_argv");
-        handoff_to(fd, TRACE_FD, exec_argv);
+        // handoff_to(fd, TRACE_FD, exec_argv);
     }
 	return 0;
 }

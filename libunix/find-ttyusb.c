@@ -159,3 +159,13 @@ char *find_ttyusb_first(void) {
 
     return buffer;
 }
+
+char* find_ttyusb_i(int i) {
+    if (i == 0) {
+        return find_ttyusb_first();
+    } else if (i == 1) {
+        return find_ttyusb_first();
+    } else {
+        panic("find_ttyusb(i) only allows i <= 2");
+    }
+}

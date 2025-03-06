@@ -94,7 +94,12 @@ int run_system_err_ok(int verbose_p, const char *fmt, ...) ;
 // lookup <name> in directory <path> and return <path>/<name>
 char *name_lookup(const char *path, const char *name);
 
-void pi_echo(int unix_fd, int pi_fd, const char *portname);
+typedef struct {
+    int pi_fd;
+    const char *portname;
+} PiDevice;
+// void pi_echo(int unix_fd, int pi_fd, const char *portname);
+void pi_echo(int unix_fd, PiDevice* devices, int num_pis);
 
 int exists(const char *name);
 
@@ -105,6 +110,7 @@ int exists(const char *name);
 char *find_ttyusb(void);
 char *find_ttyusb_first(void);
 char *find_ttyusb_last(void);
+char *find_ttyusb_i(int);
 
 // read in file <name>
 // returns:

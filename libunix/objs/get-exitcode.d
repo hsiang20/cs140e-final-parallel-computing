@@ -1,13 +1,10 @@
-objs/get-exitcode.o: get-exitcode.c \
-  /Users/hsiang/CS140E/cs140e-25win//libunix/libunix.h \
-  /Users/hsiang/CS140E/cs140e-25win//libunix/demand.h \
-  /Users/hsiang/CS140E/cs140e-25win//libunix/bit-support.h \
-  /Users/hsiang/CS140E/cs140e-25win//libunix/fast-hash32.h
+objs/get-exitcode.o: get-exitcode.c libunix.h demand.h bit-support.h \
+  fast-hash32.h
 
-/Users/hsiang/CS140E/cs140e-25win//libunix/libunix.h:
+libunix.h:
 
-/Users/hsiang/CS140E/cs140e-25win//libunix/demand.h:
+demand.h:
 
-/Users/hsiang/CS140E/cs140e-25win//libunix/bit-support.h:
+bit-support.h:
 
-/Users/hsiang/CS140E/cs140e-25win//libunix/fast-hash32.h:
+fast-hash32.h:
