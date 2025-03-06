@@ -1,0 +1,21 @@
+objs/pi-random.o: libc/pi-random.c \
+ /Users/hsiang/CS140E/cs140e-25win//libpi/include/rpi.h \
+ /Users/hsiang/CS140E/cs140e-25win//libpi/libc/demand.h \
+ /Users/hsiang/CS140E/cs140e-25win//libpi/include/gpio.h \
+ /Users/hsiang/CS140E/cs140e-25win//libpi/include/rpi-constants.h \
+ /Users/hsiang/CS140E/cs140e-25win//libpi/include/your-prototypes.h \
+ libc/random.h libc/pi-random.h
+
+/Users/hsiang/CS140E/cs140e-25win//libpi/include/rpi.h:
+
+/Users/hsiang/CS140E/cs140e-25win//libpi/libc/demand.h:
+
+/Users/hsiang/CS140E/cs140e-25win//libpi/include/gpio.h:
+
+/Users/hsiang/CS140E/cs140e-25win//libpi/include/rpi-constants.h:
+
+/Users/hsiang/CS140E/cs140e-25win//libpi/include/your-prototypes.h:
+
+libc/random.h:
+
+libc/pi-random.h:

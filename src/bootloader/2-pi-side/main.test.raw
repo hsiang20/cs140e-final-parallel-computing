@@ -1,0 +1,6 @@
+opened tty port </dev/cu.usbserial-10>.
+pi-install: tty-usb=</dev/cu.usbserial-10> program=<./main.bin> about to boot
+TRACE:simple_boot: sending 2070056 bytes, crc32=ba1af41b
+waiting for a start
+GET_CODE op mismatch: expected 55556666, got deadbeef
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""simple-boot.c:ck_eq32:30:PANIC:pi-boot failed
