@@ -13,7 +13,7 @@ RUN=0
 TTYUSB = 
 BOOTLOADER = pi-install
 
-include $(CS140E_2025_FIANL_PATH)/libpi/mk/Makefile.template-fixed
+include $(CS140E_2025_FINAL_PATH)/libpi/mk/Makefile.template-fixed
 
 all:: kernel.img
 
