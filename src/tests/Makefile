@@ -1,6 +1,6 @@
 PROGS =  hello.c
 
-BOOTLOADER = my-install
+BOOTLOADER = parallel-install
 
 # set to 1 if you want to run.
 RUN=1
