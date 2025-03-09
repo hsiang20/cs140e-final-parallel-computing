@@ -1,4 +1,7 @@
-PROGS =  hello.c
+NAME = comm
+
+# PROGS =  hello.c
+PROGS = comm.c
 
 BOOTLOADER = parallel-install
 

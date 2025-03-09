@@ -183,6 +183,10 @@ int main(int argc, char *argv[]) {
         // 4. let's send it!
         debug_output("%s: tty-usb=<%s> program=<%s>: about to boot\n", 
                     progname, dev_name, pi_prog);
+
+        // added 5. before send, change the header for id
+        code[0] = i;
+        debug_output("header is now: %d\n", code[0]);
         simple_boot(fd, boot_addr, code, nbytes);
 
         devices[i].pi_fd = fd;

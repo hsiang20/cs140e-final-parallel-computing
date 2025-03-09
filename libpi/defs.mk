@@ -21,7 +21,8 @@ LGCC ?= $(CS140E_2025_FINAL_PATH)/lib/libgcc.a
 # let the client override these.
 START ?= $(LPP)/staff-start.o
 DEFAULT_START := $(LPP)/staff-start.o
-MEMMAP ?= $(LPP)/memmap
+# MEMMAP ?= $(LPP)/memmap
+MEMMAP ?= $(LPP)/memmap.header
 
 # include path: user can override
 INC += -I. -I$(LPP)/include -I$(LPP)/ -I$(LPP)/src  -I$(LPP)/libc -I$(LPP)/staff-private
