@@ -1,9 +1,10 @@
-NAME = comm
-
-# PROGS =  hello.c
+PROGS = hello.c
 PROGS = comm.c
+PROGS = matmul.c
+
 
 BOOTLOADER = parallel-install
+
 
 # set to 1 if you want to run.
 RUN=1

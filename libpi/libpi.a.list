@@ -62160,14 +62160,14 @@ Disassembly of section .rodata.gpio_int_async_falling_edge.str1.4:
    8:	0000632e 	andeq	r6, r0, lr, lsr #6
    c:	494e4150 	stmdbmi	lr, {r4, r6, r8, lr}^
   10:	73253a43 			; <UNDEFINED> instruction: 0x73253a43
-  14:	3a73253a 	bcc	1cc9504 <gpio_int_set+0x1cc9504>
+  14:	3a73253a 	bcc	1cc9504 <gpio_enable_lo_int+0x1cc9504>
   18:	693a6425 	ldmdbvs	sl!, {r0, r2, r5, sl, sp, lr}
   1c:	656c706d 	strbvs	r7, [ip, #-109]!	; 0xffffff93
   20:	746e656d 	strbtvc	r6, [lr], #-1389	; 0xfffffa93
   24:	69687420 	stmdbvs	r8!, {r5, sl, ip, sp, lr}^
   28:	75662073 	strbvc	r2, [r6, #-115]!	; 0xffffff8d
   2c:	6974636e 	ldmdbvs	r4!, {r1, r2, r3, r5, r6, r8, r9, sp, lr}^
-  30:	0a216e6f 	beq	85b9f4 <gpio_int_set+0x85b9f4>
+  30:	0a216e6f 	beq	85b9f4 <gpio_enable_lo_int+0x85b9f4>
   34:	Address 0x0000000000000034 is out of bounds.
 
 
@@ -62206,12 +62206,12 @@ Disassembly of section .rodata.gpio_enable_hi_int.str1.4:
 00000000 <.rodata.gpio_enable_hi_int.str1.4>:
    0:	494e4150 	stmdbmi	lr, {r4, r6, r8, lr}^
    4:	73253a43 			; <UNDEFINED> instruction: 0x73253a43
-   8:	3a73253a 	bcc	1cc94f8 <gpio_int_set+0x1cc94f8>
+   8:	3a73253a 	bcc	1cc94f8 <gpio_enable_lo_int+0x1cc94f8>
    c:	693a6425 	ldmdbvs	sl!, {r0, r2, r5, sl, sp, lr}
   10:	6c61766e 	stclvs	6, cr7, [r1], #-440	; 0xfffffe48
   14:	70206469 	eorvc	r6, r0, r9, ror #8
   18:	203a6e69 	eorscs	r6, sl, r9, ror #28
-  1c:	0a0a6425 	beq	2990b8 <gpio_int_set+0x2990b8>
+  1c:	0a0a6425 	beq	2990b8 <gpio_enable_lo_int+0x2990b8>
 	...
 
 Disassembly of section .text.gpio_enable_hi_int:
@@ -62340,7 +62340,7 @@ Disassembly of section .rodata.__FUNCTION__.3:
    8:	7973615f 	ldmdbvc	r3!, {r0, r1, r2, r3, r4, r6, r8, sp, lr}^
    c:	665f636e 	ldrbvs	r6, [pc], -lr, ror #6
   10:	696c6c61 	stmdbvs	ip!, {r0, r5, r6, sl, fp, sp, lr}^
-  14:	655f676e 	ldrbvs	r6, [pc, #-1902]	; fffff8ae <gpio_int_set+0xfffff8ae>
+  14:	655f676e 	ldrbvs	r6, [pc, #-1902]	; fffff8ae <gpio_enable_lo_int+0xfffff8ae>
   18:	00656764 	rsbeq	r6, r5, r4, ror #14
 
 Disassembly of section .debug_info:
@@ -62436,7 +62436,7 @@ Disassembly of section .debug_info:
  164:	88010000 	stmdahi	r1, {}	; <UNPREDICTABLE>
  168:	00000006 	andeq	r0, r0, r6
  16c:	00000400 	andeq	r0, r0, r0, lsl #8
- 170:	0a9c0100 	beq	fe700578 <gpio_int_set+0xfe700578>
+ 170:	0a9c0100 	beq	fe700578 <gpio_enable_lo_int+0xfe700578>
  174:	00000282 	andeq	r0, r0, r2, lsl #5
  178:	00068001 	andeq	r8, r6, r1
  17c:	30000000 	andcc	r0, r0, r0
@@ -62574,7 +62574,7 @@ Disassembly of section .debug_info:
  38c:	9c010000 	stcls	0, cr0, [r1], {-0}
  390:	000003f0 	strdeq	r0, [r0], -r0	; <UNPREDICTABLE>
  394:	6e69700b 	cdpvs	0, 6, cr7, cr9, cr11, {0}
- 398:	2a5d0100 	bcs	17407a0 <gpio_int_set+0x17407a0>
+ 398:	2a5d0100 	bcs	17407a0 <gpio_enable_lo_int+0x17407a0>
  39c:	0000002c 	andeq	r0, r0, ip, lsr #32
  3a0:	00000144 	andeq	r0, r0, r4, asr #2
  3a4:	00000140 	andeq	r0, r0, r0, asr #2
@@ -62626,7 +62626,7 @@ Disassembly of section .debug_info:
  45c:	52010e00 	andpl	r0, r1, #0, 28
  460:	00000305 	andeq	r0, r0, r5, lsl #6
  464:	010e0000 	mrseq	r0, (UNDEF: 14)
- 468:	5a080253 	bpl	200dbc <gpio_int_set+0x200dbc>
+ 468:	5a080253 	bpl	200dbc <gpio_enable_lo_int+0x200dbc>
  46c:	00240c00 	eoreq	r0, r4, r0, lsl #24
  470:	06be0000 	ldrteq	r0, [lr], r0
  474:	12000000 	andne	r0, r0, #0, 0
@@ -62680,7 +62680,7 @@ Disassembly of section .debug_info:
  534:	0e3a0100 	rsfeqe	f0, f2, f0
  538:	0000002c 	andeq	r0, r0, ip, lsr #32
  53c:	00ae1631 	adceq	r1, lr, r1, lsr r6
- 540:	3b010000 	blcc	40548 <gpio_int_set+0x40548>
+ 540:	3b010000 	blcc	40548 <gpio_enable_lo_int+0x40548>
  544:	00002c0e 	andeq	r2, r0, lr, lsl #24
  548:	0001f000 	andeq	pc, r1, r0
  54c:	0001ee00 	andeq	lr, r1, r0, lsl #28
@@ -62704,7 +62704,7 @@ Disassembly of section .debug_info:
  594:	00000207 	andeq	r0, r0, r7, lsl #4
  598:	00000203 	andeq	r0, r0, r3, lsl #4
  59c:	6e69700b 	cdpvs	0, 6, cr7, cr9, cr11, {0}
- 5a0:	2b200100 	blcs	8009a8 <gpio_int_set+0x8009a8>
+ 5a0:	2b200100 	blcs	8009a8 <gpio_enable_lo_int+0x8009a8>
  5a4:	0000002c 	andeq	r0, r0, ip, lsr #32
  5a8:	0000022b 	andeq	r0, r0, fp, lsr #4
  5ac:	00000225 	andeq	r0, r0, r5, lsr #4
@@ -62772,7 +62772,7 @@ Disassembly of section .debug_info:
  6a4:	c92006a1 	stmdbgt	r0!, {r0, r5, r7, r9, sl}
  6a8:	c9000000 	stmdbgt	r0, {}	; <UNPREDICTABLE>
  6ac:	02000000 	andeq	r0, r0, #0, 0
- 6b0:	4a200aa5 	bmi	802a9c <gpio_int_set+0x802a9c>
+ 6b0:	4a200aa5 	bmi	802a9c <gpio_enable_lo_int+0x802a9c>
  6b4:	4a000003 	bmi	14 <.debug_info+0x14>
  6b8:	02000003 	andeq	r0, r0, #3, 0
  6bc:	f920052e 			; <UNDEFINED> instruction: 0xf920052e
@@ -62789,20 +62789,20 @@ Disassembly of section .debug_abbrev:
    8:	550e1b0e 	strpl	r1, [lr, #-2830]	; 0xfffff4f2
    c:	10011117 	andne	r1, r1, r7, lsl r1
   10:	02000017 	andeq	r0, r0, #23, 0
-  14:	0b0b0024 	bleq	2c00ac <gpio_int_set+0x2c00ac>
+  14:	0b0b0024 	bleq	2c00ac <gpio_enable_lo_int+0x2c00ac>
   18:	08030b3e 	stmdaeq	r3, {r1, r2, r3, r4, r5, r8, r9, fp}
   1c:	24030000 	strcs	r0, [r3], #-0
   20:	3e0b0b00 	vmlacc.f64	d0, d11, d0
   24:	000e030b 	andeq	r0, lr, fp, lsl #6
   28:	00160400 	andseq	r0, r6, r0, lsl #8
-  2c:	0b3a0e03 	bleq	e83840 <gpio_int_set+0xe83840>
-  30:	0b390b3b 	bleq	e42d24 <gpio_int_set+0xe42d24>
+  2c:	0b3a0e03 	bleq	e83840 <gpio_enable_lo_int+0xe83840>
+  30:	0b390b3b 	bleq	e42d24 <gpio_enable_lo_int+0xe42d24>
   34:	00001349 	andeq	r1, r0, r9, asr #6
   38:	49002605 	stmdbmi	r0, {r0, r2, r9, sl, sp}
   3c:	06000013 			; <UNDEFINED> instruction: 0x06000013
-  40:	0b3e0104 	bleq	f80458 <gpio_int_set+0xf80458>
+  40:	0b3e0104 	bleq	f80458 <gpio_enable_lo_int+0xf80458>
   44:	13490b0b 	movtne	r0, #39691	; 0x9b0b
-  48:	0b3b0b3a 	bleq	ec2d38 <gpio_int_set+0xec2d38>
+  48:	0b3b0b3a 	bleq	ec2d38 <gpio_enable_lo_int+0xec2d38>
   4c:	13010b39 	movwne	r0, #6969	; 0x1b39
   50:	28070000 	stmdacs	r7, {}	; <UNPREDICTABLE>
   54:	1c0e0300 	stcne	3, cr0, [lr], {-0}
@@ -62810,20 +62810,20 @@ Disassembly of section .debug_abbrev:
   5c:	0e030028 	cdpeq	0, 0, cr0, cr3, cr8, {1}
   60:	0000061c 	andeq	r0, r0, ip, lsl r6
   64:	3f002e09 	svccc	0x00002e09
-  68:	3a0e0319 	bcc	380cd4 <gpio_int_set+0x380cd4>
+  68:	3a0e0319 	bcc	380cd4 <gpio_enable_lo_int+0x380cd4>
   6c:	390b3b0b 	stmdbcc	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
   70:	1119270b 	tstne	r9, fp, lsl #14
   74:	40061201 	andmi	r1, r6, r1, lsl #4
   78:	19429718 	stmdbne	r2, {r3, r4, r8, r9, sl, ip, pc}^
   7c:	2e0a0000 	cdpcs	0, 0, cr0, cr10, cr0, {0}
   80:	03193f01 	tsteq	r9, #1, 30
-  84:	3b0b3a0e 	blcc	2ce8c4 <gpio_int_set+0x2ce8c4>
+  84:	3b0b3a0e 	blcc	2ce8c4 <gpio_enable_lo_int+0x2ce8c4>
   88:	270b390b 	strcs	r3, [fp, -fp, lsl #18]
   8c:	12011119 	andne	r1, r1, #1073741830	; 0x40000006
   90:	97184006 	ldrls	r4, [r8, -r6]
   94:	13011942 	movwne	r1, #6466	; 0x1942
   98:	050b0000 	streq	r0, [fp, #-0]
-  9c:	3a080300 	bcc	200ca4 <gpio_int_set+0x200ca4>
+  9c:	3a080300 	bcc	200ca4 <gpio_enable_lo_int+0x200ca4>
   a0:	390b3b0b 	stmdbcc	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
   a4:	0213490b 	andseq	r4, r3, #180224	; 0x2c000
   a8:	1742b717 	smlaldne	fp, r2, r7, r7
@@ -62833,19 +62833,19 @@ Disassembly of section .debug_abbrev:
   b8:	82890d00 	addhi	r0, r9, #0, 26
   bc:	01110101 	tsteq	r1, r1, lsl #2
   c0:	13011331 	movwne	r1, #4913	; 0x1331
-  c4:	8a0e0000 	bhi	3800cc <gpio_int_set+0x3800cc>
+  c4:	8a0e0000 	bhi	3800cc <gpio_enable_lo_int+0x3800cc>
   c8:	02000182 	andeq	r0, r0, #-2147483616	; 0x80000020
   cc:	18429118 	stmdane	r2, {r3, r4, r8, ip, pc}^
   d0:	2e0f0000 	cdpcs	0, 0, cr0, cr15, cr0, {0}
   d4:	03193f01 	tsteq	r9, #1, 30
-  d8:	3b0b3a0e 	blcc	2ce918 <gpio_int_set+0x2ce918>
+  d8:	3b0b3a0e 	blcc	2ce918 <gpio_enable_lo_int+0x2ce918>
   dc:	270b390b 	strcs	r3, [fp, -fp, lsl #18]
   e0:	11134919 	tstne	r3, r9, lsl r9
   e4:	40061201 	andmi	r1, r6, r1, lsl #4
   e8:	19429718 	stmdbne	r2, {r3, r4, r8, r9, sl, ip, pc}^
   ec:	00001301 	andeq	r1, r0, r1, lsl #6
   f0:	03003410 	movweq	r3, #1040	; 0x410
-  f4:	3b0b3a08 	blcc	2ce91c <gpio_int_set+0x2ce91c>
+  f4:	3b0b3a08 	blcc	2ce91c <gpio_enable_lo_int+0x2ce91c>
   f8:	490b390b 	stmdbmi	fp, {r0, r1, r3, r8, fp, ip, sp}
   fc:	b7170213 			; <UNDEFINED> instruction: 0xb7170213
  100:	00001742 	andeq	r1, r0, r2, asr #14
@@ -62860,29 +62860,29 @@ Disassembly of section .debug_abbrev:
  124:	01018289 	smlabbeq	r1, r9, r2, r8
  128:	13310111 	teqne	r1, #1073741828	; 0x40000004
  12c:	34150000 	ldrcc	r0, [r5], #-0
- 130:	3a0e0300 	bcc	380d38 <gpio_int_set+0x380d38>
+ 130:	3a0e0300 	bcc	380d38 <gpio_enable_lo_int+0x380d38>
  134:	390b3b0b 	stmdbcc	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
  138:	1c13490b 			; <UNDEFINED> instruction: 0x1c13490b
  13c:	1600000b 	strne	r0, [r0], -fp
  140:	0e030034 	mcreq	0, 0, r0, cr3, cr4, {1}
- 144:	0b3b0b3a 	bleq	ec2e34 <gpio_int_set+0xec2e34>
+ 144:	0b3b0b3a 	bleq	ec2e34 <gpio_enable_lo_int+0xec2e34>
  148:	13490b39 	movtne	r0, #39737	; 0x9b39
  14c:	42b71702 	adcsmi	r1, r7, #524288	; 0x80000
  150:	17000017 	smladne	r0, r7, r0, r0
  154:	08030034 	stmdaeq	r3, {r2, r4, r5}
- 158:	0b3b0b3a 	bleq	ec2e48 <gpio_int_set+0xec2e48>
+ 158:	0b3b0b3a 	bleq	ec2e48 <gpio_enable_lo_int+0xec2e48>
  15c:	13490b39 	movtne	r0, #39737	; 0x9b39
  160:	00000b1c 	andeq	r0, r0, ip, lsl fp
  164:	03000518 	movweq	r0, #1304	; 0x518
- 168:	3b0b3a0e 	blcc	2ce9a8 <gpio_int_set+0x2ce9a8>
+ 168:	3b0b3a0e 	blcc	2ce9a8 <gpio_enable_lo_int+0x2ce9a8>
  16c:	490b390b 	stmdbmi	fp, {r0, r1, r3, r8, fp, ip, sp}
  170:	b7170213 			; <UNDEFINED> instruction: 0xb7170213
  174:	00001742 	andeq	r1, r0, r2, asr #14
  178:	31011d19 	tstcc	r1, r9, lsl sp
  17c:	b8015213 	stmdalt	r1, {r0, r1, r4, r9, ip, lr}
  180:	01110b42 	tsteq	r1, r2, asr #22
- 184:	0b580612 	bleq	16019d4 <gpio_int_set+0x16019d4>
- 188:	0b570b59 	bleq	15c2ef4 <gpio_int_set+0x15c2ef4>
+ 184:	0b580612 	bleq	16019d4 <gpio_enable_lo_int+0x16019d4>
+ 188:	0b570b59 	bleq	15c2ef4 <gpio_enable_lo_int+0x15c2ef4>
  18c:	00001301 	andeq	r1, r0, r1, lsl #6
  190:	3100051a 	tstcc	r0, sl, lsl r5
  194:	b7170213 			; <UNDEFINED> instruction: 0xb7170213
@@ -62891,25 +62891,25 @@ Disassembly of section .debug_abbrev:
  1a0:	b7170213 			; <UNDEFINED> instruction: 0xb7170213
  1a4:	00001742 	andeq	r1, r0, r2, asr #14
  1a8:	03012e1c 	movweq	r2, #7708	; 0x1e1c
- 1ac:	3b0b3a0e 	blcc	2ce9ec <gpio_int_set+0x2ce9ec>
+ 1ac:	3b0b3a0e 	blcc	2ce9ec <gpio_enable_lo_int+0x2ce9ec>
  1b0:	270b390b 	strcs	r3, [fp, -fp, lsl #18]
  1b4:	20134919 	andscs	r4, r3, r9, lsl r9
  1b8:	0013010b 	andseq	r0, r3, fp, lsl #2
  1bc:	00051d00 	andeq	r1, r5, r0, lsl #26
- 1c0:	0b3a0e03 	bleq	e839d4 <gpio_int_set+0xe839d4>
- 1c4:	0b390b3b 	bleq	e42eb8 <gpio_int_set+0xe42eb8>
+ 1c0:	0b3a0e03 	bleq	e839d4 <gpio_enable_lo_int+0xe839d4>
+ 1c4:	0b390b3b 	bleq	e42eb8 <gpio_enable_lo_int+0xe42eb8>
  1c8:	00001349 	andeq	r1, r0, r9, asr #6
  1cc:	0300051e 	movweq	r0, #1310	; 0x51e
- 1d0:	3b0b3a08 	blcc	2ce9f8 <gpio_int_set+0x2ce9f8>
+ 1d0:	3b0b3a08 	blcc	2ce9f8 <gpio_enable_lo_int+0x2ce9f8>
  1d4:	490b390b 	stmdbmi	fp, {r0, r1, r3, r8, fp, ip, sp}
  1d8:	1f000013 	svcne	0x00000013
  1dc:	08030034 	stmdaeq	r3, {r2, r4, r5}
- 1e0:	0b3b0b3a 	bleq	ec2ed0 <gpio_int_set+0xec2ed0>
+ 1e0:	0b3b0b3a 	bleq	ec2ed0 <gpio_enable_lo_int+0xec2ed0>
  1e4:	13490b39 	movtne	r0, #39737	; 0x9b39
  1e8:	2e200000 	cdpcs	0, 2, cr0, cr0, cr0, {0}
  1ec:	3c193f00 	ldccc	15, cr3, [r9], {-0}
  1f0:	030e6e19 	movweq	r6, #60953	; 0xee19
- 1f4:	3b0b3a0e 	blcc	2cea34 <gpio_int_set+0x2cea34>
+ 1f4:	3b0b3a0e 	blcc	2cea34 <gpio_enable_lo_int+0x2cea34>
  1f8:	000b390b 	andeq	r3, fp, fp, lsl #18
 	...
 
@@ -63138,7 +63138,7 @@ Disassembly of section .debug_line:
   3c:	7062696c 	rsbvc	r6, r2, ip, ror #18
   40:	6e692f69 	cdpvs	15, 6, cr2, cr9, cr9, {3}
   44:	64756c63 	ldrbtvs	r6, [r5], #-3171	; 0xfffff39d
-  48:	752f0065 	strvc	r0, [pc, #-101]!	; ffffffeb <gpio_int_set+0xffffffeb>
+  48:	752f0065 	strvc	r0, [pc, #-101]!	; ffffffeb <gpio_enable_lo_int+0xffffffeb>
   4c:	732f7273 			; <UNDEFINED> instruction: 0x732f7273
   50:	65726168 	ldrbvs	r6, [r2, #-360]!	; 0xfffffe98
   54:	6363672f 	cmnvs	r3, #12320768	; 0xbc0000
@@ -63182,14 +63182,14 @@ Disassembly of section .debug_line:
   ec:	05130505 	ldreq	r0, [r3, #-1285]	; 0xfffffafb
   f0:	05010607 	streq	r0, [r1, #-1543]	; 0xfffff9f9
   f4:	05054930 	streq	r4, [r5, #-2352]	; 0xfffff6d0
-  f8:	052f6a06 	streq	r6, [pc, #-2566]!	; fffff6fa <gpio_int_set+0xfffff6fa>
+  f8:	052f6a06 	streq	r6, [pc, #-2566]!	; fffff6fa <gpio_enable_lo_int+0xfffff6fa>
   fc:	04010612 	streq	r0, [r1], #-1554	; 0xfffff9ee
  100:	06010502 	streq	r0, [r1], -r2, lsl #10
- 104:	4a018903 	bmi	62518 <gpio_int_set+0x62518>
+ 104:	4a018903 	bmi	62518 <gpio_enable_lo_int+0x62518>
  108:	05130505 	ldreq	r0, [r3, #-1285]	; 0xfffffafb
  10c:	05010612 	streq	r0, [r1, #-1554]	; 0xfffff9ee
  110:	134b0605 	movtne	r0, #46597	; 0xb605
- 114:	4b062e06 	blmi	18b934 <gpio_int_set+0x18b934>
+ 114:	4b062e06 	blmi	18b934 <gpio_enable_lo_int+0x18b934>
  118:	01040106 	tsteq	r4, r6, lsl #2
  11c:	7ef40306 	cdpvc	3, 15, cr0, cr4, cr6, {0}
  120:	69133301 	ldmdbvs	r3, {r0, r8, r9, ip, sp}
@@ -63220,7 +63220,7 @@ Disassembly of section .debug_line:
  184:	05130505 	ldreq	r0, [r3, #-1285]	; 0xfffffafb
  188:	05010607 	streq	r0, [r1, #-1543]	; 0xfffff9f9
  18c:	0505492a 	streq	r4, [r5, #-2346]	; 0xfffff6d6
- 190:	4a063106 	bmi	18c5b0 <gpio_int_set+0x18c5b0>
+ 190:	4a063106 	bmi	18c5b0 <gpio_enable_lo_int+0x18c5b0>
  194:	022f0105 	eoreq	r0, pc, #1073741825	; 0x40000001
  198:	01010004 	tsteq	r1, r4
  19c:	05003005 	streq	r3, [r0, #-5]
@@ -63248,7 +63248,7 @@ Disassembly of section .debug_line:
  1f4:	06050501 	streq	r0, [r5], -r1, lsl #10
  1f8:	060d0567 	streq	r0, [sp], -r7, ror #10
  1fc:	2e070501 	cfsh32cs	mvfx0, mvfx7, #1
- 200:	4b060905 	blmi	18261c <gpio_int_set+0x18261c>
+ 200:	4b060905 	blmi	18261c <gpio_enable_lo_int+0x18261c>
  204:	06130505 	ldreq	r0, [r3], -r5, lsl #10
  208:	2f01052e 	svccs	0x0001052e
  20c:	48060905 	stmdami	r6, {r0, r2, r8, fp}
@@ -63261,7 +63261,7 @@ Disassembly of section .debug_line:
  228:	06050501 	streq	r0, [r5], -r1, lsl #10
  22c:	060d0567 	streq	r0, [sp], -r7, ror #10
  230:	2e070501 	cfsh32cs	mvfx0, mvfx7, #1
- 234:	4b060905 	blmi	182650 <gpio_int_set+0x182650>
+ 234:	4b060905 	blmi	182650 <gpio_enable_lo_int+0x182650>
  238:	06130505 	ldreq	r0, [r3], -r5, lsl #10
  23c:	2f01052e 	svccs	0x0001052e
  240:	48060905 	stmdami	r6, {r0, r2, r8, fp}
@@ -63328,7 +63328,7 @@ Disassembly of section .debug_str:
   5c:	746e6920 	strbtvc	r6, [lr], #-2336	; 0xfffff6e0
   60:	51494600 	cmppl	r9, r0, lsl #12
   64:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
-  68:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; fffffea0 <gpio_int_set+0xfffffea0>
+  68:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; fffffea0 <gpio_enable_lo_int+0xfffffea0>
   6c:	69706700 	ldmdbvs	r0!, {r8, r9, sl, sp, lr}^
   70:	76655f6f 	strbtvc	r5, [r5], -pc, ror #30
   74:	5f746e65 	svcpl	0x00746e65
@@ -63440,7 +63440,7 @@ Disassembly of section .debug_str:
  21c:	6d2d206d 	stcvs	0, cr2, [sp, #-436]!	; 0xfffffe4c
  220:	68637261 	stmdavs	r3!, {r0, r5, r6, r9, ip, sp, lr}^
  224:	6d72613d 	ldfvse	f6, [r2, #-244]!	; 0xffffff0c
- 228:	7a6b3676 	bvc	1acdc08 <gpio_int_set+0x1acdc08>
+ 228:	7a6b3676 	bvc	1acdc08 <gpio_enable_lo_int+0x1acdc08>
  22c:	67672d20 	strbvs	r2, [r7, -r0, lsr #26]!
  230:	2d206264 	sfmcs	f6, 4, [r0, #-400]!	; 0xfffffe70
  234:	2d20674f 	stccs	7, cr6, [r0, #-316]!	; 0xfffffec4
@@ -63463,7 +63463,7 @@ Disassembly of section .debug_str:
  278:	54434e55 	strbpl	r4, [r3], #-3669	; 0xfffff1ab
  27c:	5f4e4f49 	svcpl	0x004e4f49
  280:	7067005f 	rsbvc	r0, r7, pc, asr r0
- 284:	655f6f69 	ldrbvs	r6, [pc, #-3945]	; fffff323 <gpio_int_set+0xfffff323>
+ 284:	655f6f69 	ldrbvs	r6, [pc, #-3945]	; fffff323 <gpio_enable_lo_int+0xfffff323>
  288:	746e6576 	strbtvc	r6, [lr], #-1398	; 0xfffffa8a
  28c:	656c635f 	strbvs	r6, [ip, #-863]!	; 0xfffffca1
  290:	75007261 	strvc	r7, [r0, #-609]	; 0xfffffd9f
@@ -63513,7 +63513,7 @@ Disassembly of section .debug_str:
  340:	726f6873 	rsbvc	r6, pc, #7536640	; 0x730000
  344:	6e692074 	mcrvs	0, 3, r2, cr9, cr4, {3}
  348:	72700074 	rsbsvc	r0, r0, #116, 0	; 0x74
- 34c:	6b746e69 	blvs	1d1bcf8 <gpio_int_set+0x1d1bcf8>
+ 34c:	6b746e69 	blvs	1d1bcf8 <gpio_enable_lo_int+0x1d1bcf8>
  350:	49504700 	ldmdbmi	r0, {r8, r9, sl, lr}^
  354:	49485f4f 	stmdbmi	r8, {r0, r1, r2, r3, r6, r8, r9, sl, fp, ip, lr}^
  358:	445f4847 	ldrbmi	r4, [pc], #-2119	; 360 <.debug_str+0x360>
@@ -63556,7 +63556,7 @@ Disassembly of section .debug_str:
  3ec:	73615f74 	cmnvc	r1, #116, 30	; 0x1d0
  3f0:	5f636e79 	svcpl	0x00636e79
  3f4:	69736972 	ldmdbvs	r3!, {r1, r4, r5, r6, r8, fp, sp, lr}^
- 3f8:	655f676e 	ldrbvs	r6, [pc, #-1902]	; fffffc92 <gpio_int_set+0xfffffc92>
+ 3f8:	655f676e 	ldrbvs	r6, [pc, #-1902]	; fffffc92 <gpio_enable_lo_int+0xfffffc92>
  3fc:	00656764 	rsbeq	r6, r5, r4, ror #14
  400:	5f515249 	svcpl	0x00515249
  404:	65736142 	ldrbvs	r6, [r3, #-322]!	; 0xfffffebe
@@ -63571,7 +63571,7 @@ Disassembly of section .comment:
    c:	45206d72 	strmi	r6, [r0, #-3442]!	; 0xfffff28e
   10:	6465626d 	strbtvs	r6, [r5], #-621	; 0xfffffd93
   14:	20646564 	rsbcs	r6, r4, r4, ror #10
-  18:	6c6f6f54 	stclvs	15, cr6, [pc], #-336	; fffffed0 <gpio_int_set+0xfffffed0>
+  18:	6c6f6f54 	stclvs	15, cr6, [pc], #-336	; fffffed0 <gpio_enable_lo_int+0xfffffed0>
   1c:	69616863 	stmdbvs	r1!, {r0, r1, r5, r6, fp, sp, lr}^
   20:	3031206e 	eorscc	r2, r1, lr, rrx
   24:	322d332e 	eorcc	r3, sp, #-1207959552	; 0xb8000000
@@ -63659,12 +63659,12 @@ Disassembly of section .ARM.attributes:
    4:	61656100 	cmnvs	r5, r0, lsl #2
    8:	01006962 	tsteq	r0, r2, ror #18
    c:	00000022 	andeq	r0, r0, r2, lsr #32
-  10:	5a4b3605 	bpl	12cd82c <gpio_int_set+0x12cd82c>
+  10:	5a4b3605 	bpl	12cd82c <gpio_enable_lo_int+0x12cd82c>
   14:	08070600 	stmdaeq	r7, {r9, sl}
   18:	12010901 	andne	r0, r1, #16384	; 0x4000
   1c:	15011404 	strne	r1, [r1, #-1028]	; 0xfffffbfc
   20:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
-  24:	1a011901 	bne	46430 <gpio_int_set+0x46430>
+  24:	1a011901 	bne	46430 <gpio_enable_lo_int+0x46430>
   28:	44011e01 	strmi	r1, [r1], #-3585	; 0xfffff1ff
   2c:	Address 0x000000000000002c is out of bounds.
 
