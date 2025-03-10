@@ -22,8 +22,9 @@ void notmain(void) {
     uart_init();
     const uint8_t rank = *(uint8_t *)(0x8000);
     const uint8_t size = *(uint8_t *)(0x8000 + 1);
+    printk("rank: %d, size: %d\n", rank, size);
 
-    FMPI_Init();
+    FMPI_Init(rank, size, 0);
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     // MPI_Comm_size(MPI_COMM_WORLD, &size);
 
@@ -35,7 +36,7 @@ void notmain(void) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 A[i][j] = i + j;  // Example values
-                printf("%d ", A[i][j]);
+                printk("%d ", A[i][j]);
             }
             printk("\n");
         }
@@ -53,9 +54,12 @@ void notmain(void) {
 
     // Broadcast matrix B to all processes
     // MPI_Bcast(B, N * N, MPI_INT, 0, MPI_COMM_WORLD);
-    FMPI_Bcast(B, N * N, 0, rank);
+    FMPI_Bcast(B, N * N);
 
-    int rows_per_process = N / size;  // Assuming N is divisible by size
+    // int rows_per_process = N / size;  // Assuming N is divisible by size
+    assert(N == 4);
+    assert(size == 2);
+    int rows_per_process = 2;
     int A_sub[rows_per_process][N], C_sub[rows_per_process][N];
 
     // Scatter rows of A to different processes
@@ -63,8 +67,7 @@ void notmain(void) {
     //             A_sub, rows_per_process * N, MPI_INT,
     //             0, MPI_COMM_WORLD);
     FMPI_Scatter(A, rows_per_process * N,
-                A_sub, rows_per_process * N,
-                0, rank, size);
+                A_sub, rows_per_process * N);
 
     // Compute local matrix multiplication
     for (int i = 0; i < rows_per_process; i++) {
@@ -76,17 +79,16 @@ void notmain(void) {
     //            C, rows_per_process * N, MPI_INT,
     //            0, MPI_COMM_WORLD);
     FMPI_Gather(C_sub, rows_per_process * N,
-                C, rows_per_process * N,
-                0, rank, size);
+                C, rows_per_process * N);
     
     if (rank == 0) {
         // Print the result matrix
-        printf("Result Matrix C:\n");
+        printk("Result Matrix C:\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                printf("%d ", C[i][j]);
+                printk("%d ", C[i][j]);
             }
-            printf("\n");
+            printk("\n");
         }
     }
 

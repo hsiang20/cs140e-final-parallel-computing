@@ -1,6 +1,9 @@
 #include "fmpi.h"
 
 static sw_uart_t u;
+static int _rank, _size, _root;
+
+
 
 void send(void *buffer, int count) {
     for (int i = 0; i < count; i++) {
@@ -15,21 +18,39 @@ void recv(void *buffer, int count) {
     }
 }
 
-void send_signal() {
-    sw_uart_put8(&u, SEND_SIGNAL);
+void send_signal(uint8_t signal) {
+    sw_uart_put8(&u, signal);
 }
 
-void wait_for_signal_from_root() {
-    while (sw_uart_get8(&u) != SEND_SIGNAL)
+void wait_signal(uint8_t signal) {
+    while (sw_uart_get8(&u) != signal)
         ;
 }
 
-void FMPI_Init() {
-    u = sw_uart_init(16, 17, 115200);   
+void sync_root_last() {
+    if (_rank == _root) {
+        for (int i = 0; i < _size; i++) {
+            if (i == _root) continue;
+            send_signal(SYNC_SIGNAL);
+            delay_ms(DELAY_MS);
+            wait_signal(SYNC_SIGNAL);
+        }
+    } else {
+        wait_signal(SYNC_SIGNAL);
+        send_signal(SYNC_SIGNAL);
+    }
 }
 
-void FMPI_Bcast(void *buffer, int count, int root, int rank) {
-    if (rank == root) {
+void FMPI_Init(int rank, int size, int root) {
+    u = sw_uart_init(TX, RX, BAUD_RATE);   
+    _rank = rank;
+    _size = size;
+    _root = root;
+}
+
+void FMPI_Bcast(void *buffer, int count) {
+    sync_root_last();
+    if (_rank == _root) {
         send(buffer, count);
     } else {
         recv(buffer, count);
@@ -37,14 +58,14 @@ void FMPI_Bcast(void *buffer, int count, int root, int rank) {
 }
 
 void FMPI_Scatter(void *sendbuff, int sendcount,
-                    void *recvbuff, int recvcount,
-                    int root, int rank, int size) {
+                    void *recvbuff, int recvcount) {
     // doesn't know diff betw sencount, recvcount
     // so assume they should be the same for now
     assert(sendcount == recvcount);
-    if (rank == root) {
-        for (int i = 0; i < size; i++) {
-            if (i == root) continue;
+    sync_root_last();
+    if (_rank == _root) {
+        for (int i = 0; i < _size; i++) {
+            if (i == _root) continue;
             send((data_type *)sendbuff + i * sendcount, sendcount);
         }
         memcpy(recvbuff, sendbuff, recvcount * sizeof(data_type));
@@ -54,20 +75,20 @@ void FMPI_Scatter(void *sendbuff, int sendcount,
 }
 
 void FMPI_Gather(void *sendbuff, int sendcount,
-                    void *recvbuff, int recvcount,
-                    int root, int rank, int size) {
+                    void *recvbuff, int recvcount) {
     // doesn't know diff betw sencount, recvcount
     // so assume they should be the same for now
     assert(sendcount == recvcount);
-    if (rank == root) {
-        for (int i = 0; i < size; i++) {
-            if (i == root) continue;
-            send_signal();
+    sync_root_last();
+    if (_rank == _root) {
+        for (int i = 0; i < _size; i++) {
+            if (i == _root) continue;
+            send_signal(SEND_SIGNAL);
             recv((data_type *)sendbuff + i * sendcount, sendcount);
         }
         memcpy(recvbuff, sendbuff, recvcount * sizeof(data_type));
     } else {
-        wait_for_signal_from_root();
+        wait_signal(SEND_SIGNAL);
         send((data_type *)sendbuff, sendcount);
     }
 }

@@ -519,7 +519,7 @@ Disassembly of section .text:
     8770:	cccccccd 	.word	0xcccccccd
     8774:	00009168 	.word	0x00009168
     8778:	00009174 	.word	0x00009174
-    877c:	000092cc 	.word	0x000092cc
+    877c:	000092e0 	.word	0x000092e0
 
 00008780 <vprintk>:
     8780:	e92d4030 	push	{r4, r5, lr}
@@ -691,7 +691,7 @@ Disassembly of section .text:
     8a18:	eb000012 	bl	8a68 <clean_reboot>
     8a1c:	e28dd014 	add	sp, sp, #20, 0
     8a20:	e8bd8030 	pop	{r4, r5, pc}
-    8a24:	000092cc 	.word	0x000092cc
+    8a24:	000092e0 	.word	0x000092e0
     8a28:	000091f4 	.word	0x000091f4
     8a2c:	00009130 	.word	0x00009130
     8a30:	00009188 	.word	0x00009188
@@ -711,7 +711,7 @@ Disassembly of section .text:
     8a58:	e5830000 	str	r0, [r3]
     8a5c:	e1a00002 	mov	r0, r2
     8a60:	e12fff1e 	bx	lr
-    8a64:	000092cc 	.word	0x000092cc
+    8a64:	000092e0 	.word	0x000092e0
 
 00008a68 <clean_reboot>:
     8a68:	e92d4010 	push	{r4, lr}
@@ -726,7 +726,7 @@ Disassembly of section .text:
 00008a88 <program_end>:
     8a88:	e59f0000 	ldr	r0, [pc]	; 8a90 <program_end+0x8>
     8a8c:	e12fff1e 	bx	lr
-    8a90:	000092d0 	.word	0x000092d0
+    8a90:	000092e8 	.word	0x000092e8
 
 00008a94 <_cstart>:
     8a94:	e92d4030 	push	{r4, r5, lr}
@@ -771,12 +771,12 @@ Disassembly of section .text:
     8b30:	e59f0018 	ldr	r0, [pc, #24]	; 8b50 <_cstart+0xbc>
     8b34:	ebfffec2 	bl	8644 <printk>
     8b38:	ebffffca 	bl	8a68 <clean_reboot>
-    8b3c:	000092d0 	.word	0x000092d0
-    8b40:	000092d0 	.word	0x000092d0
+    8b3c:	000092e4 	.word	0x000092e4
+    8b40:	000092e8 	.word	0x000092e8
     8b44:	00009208 	.word	0x00009208
-    8b48:	000092bc 	.word	0x000092bc
+    8b48:	000092d0 	.word	0x000092d0
     8b4c:	00009234 	.word	0x00009234
-    8b50:	0000928c 	.word	0x0000928c
+    8b50:	000092a0 	.word	0x000092a0
 
 00008b54 <dev_barrier>:
     8b54:	ea000002 	b	8b64 <dsb>
@@ -1067,4 +1067,4 @@ Disassembly of section .text:
     8f38:	eafffff7 	b	8f1c <putk+0x8>
     8f3c:	e3a00001 	mov	r0, #1, 0
     8f40:	e8bd8010 	pop	{r4, pc}
-    8f44:	000092cc 	.word	0x000092cc
+    8f44:	000092e0 	.word	0x000092e0
