@@ -17,7 +17,7 @@ SECTIONS
         /* leave space for change */
         . = ALIGN(4);
         BYTE(0x00);
-        /*LONG(0x00);*/
+        BYTE(0x00);
     }
     /*.text 0x8000 : */
     .text : {
