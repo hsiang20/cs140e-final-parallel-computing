@@ -1,7 +1,7 @@
 objs/unhandled-exception.o: staff-src/unhandled-exception.S \
- /Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-25win/libpi/include/rpi-asm.h \
- /Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-25win/libpi/include/rpi-constants.h
+ /Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-final-parallel-computing/libpi/include/rpi-asm.h \
+ /Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-final-parallel-computing/libpi/include/rpi-constants.h
 
-/Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-25win/libpi/include/rpi-asm.h:
+/Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-final-parallel-computing/libpi/include/rpi-asm.h:
 
-/Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-25win/libpi/include/rpi-constants.h:
+/Users/jengchi/Documents/Coursework/win25/cs140e/cs140e-final-parallel-computing/libpi/include/rpi-constants.h:
