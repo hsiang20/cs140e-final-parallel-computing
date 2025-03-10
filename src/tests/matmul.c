@@ -22,6 +22,7 @@ void notmain(void) {
     uart_init();
     const uint8_t rank = *(uint8_t *)(0x8000);
     const uint8_t size = *(uint8_t *)(0x8000 + 1);
+    printk("rank: %d, size: %d\n", rank, size);
 
     FMPI_Init(rank, size, 0);
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -55,7 +56,10 @@ void notmain(void) {
     // MPI_Bcast(B, N * N, MPI_INT, 0, MPI_COMM_WORLD);
     FMPI_Bcast(B, N * N);
 
-    int rows_per_process = N / size;  // Assuming N is divisible by size
+    // int rows_per_process = N / size;  // Assuming N is divisible by size
+    assert(N == 4);
+    assert(size == 2);
+    int rows_per_process = 2;
     int A_sub[rows_per_process][N], C_sub[rows_per_process][N];
 
     // Scatter rows of A to different processes

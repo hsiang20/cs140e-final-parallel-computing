@@ -1,6 +1,7 @@
 // #include "_uint8_t.h"
 
 // #include "libunix.h"
+#include "rpi.h"
 #include "sw-uart.h"
 
 // assume data type only allows "uint8_t"

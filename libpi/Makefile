@@ -9,7 +9,7 @@
 SRC += src/gpio.c
 SRC += src/uart.c
 SRC += src/sw-uart.c
-# SRC += src/fmpi.c
+SRC += src/fmpi.c
 
 # if you want to use your own pullup-puldown
 # 1. put it in src/gpio-pud.c)
