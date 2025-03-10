@@ -30,19 +30,13 @@ void sw_uart_put8(sw_uart_t *uart, uint8_t b) {
     delay_ncycles(s, n);
     uint8_t mask = 1;
 
-    // printk("cycles_per_bit: %x\n", n);
-    // uint32_t cycles = 0;
     for (int i = 0; i < 8; i++) {
         delay_ncycles(s, n * (i + 1));
-        // cycles = cycle_cnt_read();
-        // printk("cycles: %x gpio %d set bit %d: ", cycles, uart->tx, i);
         if ((b & mask) == 0) {
             gpio_set_off(uart->tx);
-            printk("0\n");
         }
         else {
             gpio_set_on(uart->tx);
-            printk("1\n");
         }
         mask *= 2;
     }
@@ -65,22 +59,12 @@ int sw_uart_get8_timeout(sw_uart_t *uart, uint32_t timeout_usec) {
     uint32_t n = uart->cycle_per_bit,
              s = cycle_cnt_read();
     int val = 0;
-    
-    uint32_t cycles_arr[8];
 
-    uint32_t cycles = 0;
     for (int i = 0; i < 8; i++) {
-        while ((cycles = cycle_cnt_read()) - s < (i+1) * n)
+        while (cycle_cnt_read() - s < (i+1) * n)
             ;
-        cycles_arr[i] = cycles;
         int bit = gpio_read(rx) & 1;
-        // printk("cycles: %x gpio %d recv bit %d: %d\n", cycles, rx, i, bit);
         val |= (bit << i);
-    }
-
-    printk("cycles_per_bit: %x\n", n);
-    for (int i = 0; i < 8; i++) {
-        printk("cycles_arr[%d]: %x\n", i, cycles_arr[i]);
     }
 
     while (cycle_cnt_read() - s < 9 * n)
