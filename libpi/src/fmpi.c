@@ -27,16 +27,21 @@ void wait_signal(uint8_t signal) {
         ;
 }
 
+int wait_signal_timeout(uint8_t signal, uint32_t msec) {
+    return sw_uart_get8_timeout(&u, 1000*msec);
+}
+
 void sync_root_last() {
     if (_rank == _root) {
         for (int i = 0; i < _size; i++) {
             if (i == _root) continue;
-            send_signal(SYNC_SIGNAL);
-            delay_ms(DELAY_MS);
-            wait_signal(SYNC_SIGNAL);
+            do {
+                send_signal(SYNC_SIGNAL);
+            } while (wait_signal_timeout(SYNC_SIGNAL, TIMEOUT_MS) != SYNC_SIGNAL);
         }
     } else {
         wait_signal(SYNC_SIGNAL);
+        delay_ms(DELAY_MS);
         send_signal(SYNC_SIGNAL);
     }
 }
@@ -59,13 +64,14 @@ void FMPI_Bcast(void *buffer, int count) {
 
 void FMPI_Scatter(void *sendbuff, int sendcount,
                     void *recvbuff, int recvcount) {
-    // doesn't know diff betw sencount, recvcount
+    // don't know diff betw sencount, recvcount
     // so assume they should be the same for now
     assert(sendcount == recvcount);
     sync_root_last();
     if (_rank == _root) {
         for (int i = 0; i < _size; i++) {
             if (i == _root) continue;
+            delay_ms(DELAY_MS);
             send((data_type *)sendbuff + i * sendcount, sendcount);
         }
         memcpy(recvbuff, sendbuff, recvcount * sizeof(data_type));
@@ -76,7 +82,7 @@ void FMPI_Scatter(void *sendbuff, int sendcount,
 
 void FMPI_Gather(void *sendbuff, int sendcount,
                     void *recvbuff, int recvcount) {
-    // doesn't know diff betw sencount, recvcount
+    // don't know diff betw sencount, recvcount
     // so assume they should be the same for now
     assert(sendcount == recvcount);
     sync_root_last();
@@ -84,11 +90,12 @@ void FMPI_Gather(void *sendbuff, int sendcount,
         for (int i = 0; i < _size; i++) {
             if (i == _root) continue;
             send_signal(SEND_SIGNAL);
-            recv((data_type *)sendbuff + i * sendcount, sendcount);
+            recv((data_type *)recvbuff + i * sendcount, sendcount);
         }
         memcpy(recvbuff, sendbuff, recvcount * sizeof(data_type));
     } else {
         wait_signal(SEND_SIGNAL);
+        delay_ms(DELAY_MS);
         send((data_type *)sendbuff, sendcount);
     }
 }
