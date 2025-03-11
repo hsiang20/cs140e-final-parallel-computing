@@ -96,8 +96,8 @@ static inline int sw_uart_get8(sw_uart_t *s) {
     unsigned sec = 5;
 
     int c = sw_uart_get8_timeout(s, 1000*1000*sec);
-    if(c<0)
-        panic("timed out in %dsec: something is wrong\n",sec);
+    // if(c<0)
+    //     panic("timed out in %dsec: something is wrong\n",sec);
     return c;
 }
 

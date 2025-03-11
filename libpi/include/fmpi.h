@@ -14,13 +14,15 @@ typedef uint8_t data_type;
 #define SEND_SIGNAL 5
 #define SYNC_SIGNAL 7
 
-#define DELAY_MS 100
+#define DELAY_MS 20
+#define TIMEOUT_MS 100
 
 void send(void *buffer, int count);
 void recv(void *buffer, int count);
 
 void send_signal(uint8_t signal);
 void wait_signal(uint8_t signal);
+int wait_signal_timeout(uint8_t signal, uint32_t msec);
 
 void sync_root_first();
 void sync_root_last();
