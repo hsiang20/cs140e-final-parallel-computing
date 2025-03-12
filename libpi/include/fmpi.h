@@ -5,7 +5,7 @@
 #include "sw-uart.h"
 
 // assume data type only allows "uint8_t"
-typedef uint8_t data_type;
+typedef int8_t data_type;
 
 #define TX 16
 #define RX 17

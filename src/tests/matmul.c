@@ -8,7 +8,7 @@
 #define N 4  // Matrix size (NxN)
 
 // Function to multiply a row of A with B and store in C
-void matmul(int8_t A[], int8_t B[N][N], int8_t C[]) {
+void matmul(data_type A[], data_type B[N][N], data_type C[]) {
     for (int j = 0; j < N; j++) {
         C[j] = 0;
         for (int k = 0; k < N; k++) {
@@ -28,7 +28,7 @@ void notmain(void) {
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     // MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    int8_t A[N][N], B[N][N], C[N][N];
+    data_type A[N][N], B[N][N], C[N][N];
 
     if (rank == 0) {
         // Initialize matrices A and B in root process
@@ -68,7 +68,7 @@ void notmain(void) {
     assert(N == 4);
     assert(size == 2);
     int rows_per_process = 2;
-    int8_t A_sub[rows_per_process][N], C_sub[rows_per_process][N];
+    data_type A_sub[rows_per_process][N], C_sub[rows_per_process][N];
 
     // Scatter rows of A to different processes
     FMPI_Scatter(A, rows_per_process * N,
