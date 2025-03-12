@@ -8,7 +8,7 @@
 #define N 4  // Matrix size (NxN)
 
 // Function to multiply a row of A with B and store in C
-void matmul(int A[], int B[N][N], int C[]) {
+void matmul(int8_t A[], int8_t B[N][N], int8_t C[]) {
     for (int j = 0; j < N; j++) {
         C[j] = 0;
         for (int k = 0; k < N; k++) {
@@ -28,10 +28,11 @@ void notmain(void) {
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     // MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    int A[N][N], B[N][N], C[N][N];
+    int8_t A[N][N], B[N][N], C[N][N];
 
     if (rank == 0) {
         // Initialize matrices A and B in root process
+
         printk("Matrix A:\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -40,6 +41,13 @@ void notmain(void) {
             }
             printk("\n");
         }
+
+        // printk("A_seq: ");
+        // int8_t *start = (int8_t *)A;
+        // for (int i = 0; i < N * N; i++) {
+        //     printk("%d ", start[i]);
+        // }
+        // printk("\n");
 
         printk("\nMatrix B:\n");
         for (int i = 0; i < N; i++) {
@@ -53,21 +61,26 @@ void notmain(void) {
     }
 
     // Broadcast matrix B to all processes
-    // MPI_Bcast(B, N * N, MPI_INT, 0, MPI_COMM_WORLD);
     FMPI_Bcast(B, N * N);
+    // printk("%d done Bcast\n", rank);
 
     // int rows_per_process = N / size;  // Assuming N is divisible by size
     assert(N == 4);
     assert(size == 2);
     int rows_per_process = 2;
-    int A_sub[rows_per_process][N], C_sub[rows_per_process][N];
+    int8_t A_sub[rows_per_process][N], C_sub[rows_per_process][N];
 
     // Scatter rows of A to different processes
-    // MPI_Scatter(A, rows_per_process * N, MPI_INT,
-    //             A_sub, rows_per_process * N, MPI_INT,
-    //             0, MPI_COMM_WORLD);
     FMPI_Scatter(A, rows_per_process * N,
                 A_sub, rows_per_process * N);
+    // printk("%d done Scatter\n", rank);
+    // for (int i = 0; i < rows_per_process; i++) {
+    //     printk("%d: ", rank);
+    //     for (int j = 0; j < N; j++) {
+    //         printk("%d ", A_sub[i][j]);
+    //     }
+    //     printk("\n");
+    // }
 
     // Compute local matrix multiplication
     for (int i = 0; i < rows_per_process; i++) {
@@ -75,11 +88,17 @@ void notmain(void) {
     }
 
     // Gather results back into matrix C
-    // MPI_Gather(C_sub, rows_per_process * N, MPI_INT,
-    //            C, rows_per_process * N, MPI_INT,
-    //            0, MPI_COMM_WORLD);
     FMPI_Gather(C_sub, rows_per_process * N,
                 C, rows_per_process * N);
+    
+    // printk("%d done Gather\n", rank);
+    // for (int i = 0; i < rows_per_process; i++) {
+    //     printk("%d: ", rank);
+    //     for (int j = 0; j < N; j++) {
+    //         printk("%d ", C_sub[i][j]);
+    //     }
+    //     printk("\n");
+    // }
     
     if (rank == 0) {
         // Print the result matrix
@@ -91,6 +110,8 @@ void notmain(void) {
             printk("\n");
         }
     }
+
+    delay_ms(DELAY_MS);
 
     // MPI_Finalize();
     output("rank: %d finished\n", rank);
