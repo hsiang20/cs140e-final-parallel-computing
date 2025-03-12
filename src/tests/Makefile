@@ -1,7 +1,7 @@
 PROGS = hello.c
 PROGS = comm.c
 PROGS = matmul.c
-
+PROGS = gpio_int.c
 
 BOOTLOADER = parallel-install
 

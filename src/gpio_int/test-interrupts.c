@@ -59,6 +59,7 @@ int falling_handler(uint32_t pc) {
     if (gpio_event_detected(in_pin)) {
         if (!gpio_read(in_pin)) {
             n_falling ++;
+            printk("Get falling edge\n");
             gpio_event_clear(in_pin);
             return 1;
         }
@@ -83,6 +84,7 @@ int rising_handler(uint32_t pc) {
     if (gpio_event_detected(in_pin)) {
         if (gpio_read(in_pin)) {
             n_rising ++;
+            printk("Get rising edge\n");
             gpio_event_clear(in_pin);
             return 1;
         }
