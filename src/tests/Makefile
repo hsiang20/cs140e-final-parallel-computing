@@ -1,6 +1,7 @@
 PROGS = hello.c
 PROGS = comm.c
 PROGS = matmul.c
+# PROGS = mergesort.c
 
 
 BOOTLOADER = parallel-install

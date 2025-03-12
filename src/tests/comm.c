@@ -13,7 +13,7 @@ static void my_putk(char *s) {
 
 void notmain(void) {
     uart_init();
-    const uint32_t id = *(uint32_t *)(0x8000);
+    const uint8_t id = *(uint8_t *)(0x8000);
 
     printk("id: %d\n", id);
 
