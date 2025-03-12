@@ -17,7 +17,7 @@ void test_startup(init_fn_t init_fn, interrupt_fn_t int_fn);
 
 // global state [bad form: but hopefully makes lab code more obvious]
 extern volatile int n_interrupt;
-enum { out_pin = 16, in_pin = 17 };
+enum { out_pin = 18, in_pin = 19 };
 enum { N = 1024*32 };
 
 // TODO: you write these two routines.

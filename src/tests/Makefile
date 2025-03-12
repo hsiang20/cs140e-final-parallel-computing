@@ -1,12 +1,9 @@
 PROGS = hello.c
 PROGS = comm.c
 PROGS = matmul.c
-<<<<<<< HEAD
+# PROGS = gpio_int.c
 # PROGS = mergesort.c
-
-=======
-PROGS = gpio_int.c
->>>>>>> 7a75cdd796b619b00624db50d078aa5dbc6f6a90
+# PROGS = fmpi_async.c
 
 BOOTLOADER = parallel-install
 

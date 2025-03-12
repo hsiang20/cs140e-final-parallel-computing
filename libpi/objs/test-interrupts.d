@@ -10,7 +10,9 @@ objs/test-interrupts.o: src/test-interrupts.c \
  /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/cycle-count.h \
  /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/timer-interrupt.h \
  src/vector-base.h libc/bit-support.h \
- /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/asm-helpers.h
+ /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/asm-helpers.h \
+ /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/fmpi.h \
+ /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/sw-uart.h
 
 /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/test-interrupts.h:
 
@@ -37,3 +39,7 @@ src/vector-base.h:
 libc/bit-support.h:
 
 /Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/asm-helpers.h:
+
+/Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/fmpi.h:
+
+/Users/hsiang/CS140E/cs140e-final-parallel-computing//libpi/include/sw-uart.h:

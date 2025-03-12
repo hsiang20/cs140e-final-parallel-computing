@@ -9,6 +9,8 @@ typedef int8_t data_type;
 
 #define TX 16
 #define RX 17
+#define TX_ASYNC 18
+#define RX_ASYNC 19
 #define BAUD_RATE 115200
 
 #define SEND_SIGNAL 5
@@ -36,3 +38,14 @@ void FMPI_Scatter(void *sendbuff, int sendcount,
 
 void FMPI_Gather(void *sendbuff, int sendcount,
                     void *recvbuff, int recvcount);
+
+
+void FMPI_Init_async(int rank, int size, int root);
+void send_async(void *buffer, int count);
+void recv_async(void *buffer, int count);
+void send_signal_async(uint8_t signal);
+void wait_signal_async(uint8_t signal);
+int wait_signal_timeout_async(uint8_t signal, uint32_t msec);
+void sync_me_last();
+void sync_receiver();
+void FMPI_PUT(void *buffer, int count);

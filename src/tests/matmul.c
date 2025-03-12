@@ -4,6 +4,7 @@
 
 #include "rpi.h"
 #include "fmpi.h"
+#include "test-interrupts.h"
 
 #define N 4  // Matrix size (NxN)
 
@@ -25,6 +26,7 @@ void notmain(void) {
     printk("rank: %d, size: %d\n", rank, size);
 
     FMPI_Init(rank, size, 0);
+    FMPI_Init_async(rank, size, 0);
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     // MPI_Comm_size(MPI_COMM_WORLD, &size);
 
@@ -59,6 +61,19 @@ void notmain(void) {
         }
         printk("\n");
     }
+
+    if (rank == 1) {
+        rise_fall_int_startup();
+    }
+
+    // Call an async put from rank 0
+    uint8_t text = 3;
+    if (rank == 0) {
+        gpio_set_off(TX_ASYNC);
+        FMPI_PUT(&text, 1);
+    }
+
+    printk("rank %d is here\n", rank);
 
     // Broadcast matrix B to all processes
     FMPI_Bcast(B, N * N);

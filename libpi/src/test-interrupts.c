@@ -3,6 +3,7 @@
 #include "test-interrupts.h"
 #include "timer-interrupt.h"
 #include "vector-base.h"
+#include "fmpi.h"
 
 volatile int n_interrupt;
 
@@ -57,7 +58,12 @@ int falling_handler(uint32_t pc) {
     if (gpio_event_detected(in_pin)) {
         if (!gpio_read(in_pin)) {
             n_falling ++;
-            // printk("Get falling edge\n");
+            printk("Get falling edge\n");
+            uint8_t buffer = 0;
+            sync_receiver();
+            // printk("here\n");
+            recv_async(&buffer, 1);
+            printk("received: %d\n", buffer);
             gpio_event_clear(in_pin);
             return 1;
         }
