@@ -34,7 +34,7 @@ void notmain(void) {
         // FMPI_PUT(&text, 1);
         // delay_ms(2000);
         gpio_set_off(TX_ASYNC);
-        FMPI_PUT(&text, &address, 1);
+        FMPI_PUT(&text, &address);
         delay_ms(3000);
     }
     if (rank == 1) {
