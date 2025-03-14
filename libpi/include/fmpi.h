@@ -5,10 +5,12 @@
 #include "sw-uart.h"
 
 // assume data type only allows "uint8_t"
-typedef int8_t data_type;
+// typedef int8_t data_type;
 
-#define TX 16
-#define RX 17
+#define MAX_RPIS 4
+
+#define BASE_TX 16
+#define BASE_RX 17
 #define BAUD_RATE 115200
 
 #define SEND_SIGNAL 5
@@ -17,22 +19,22 @@ typedef int8_t data_type;
 #define DELAY_MS 20
 #define TIMEOUT_MS 100
 
-void send(void *buffer, int count);
-void recv(void *buffer, int count);
+void send(void *buffer, int recv_pi, int count, int data_size);
+void recv(void *buffer, int send_pi, int count, int data_size);
 
-void send_signal(uint8_t signal);
-void wait_signal(uint8_t signal);
-int wait_signal_timeout(uint8_t signal, uint32_t msec);
+void send_signal(int recv_pi, uint8_t signal);
+void wait_signal(int send_pi, uint8_t signal);
+int wait_signal_timeout(int recv_pi, uint8_t signal, uint32_t msec);
 
 void sync_root_first();
 void sync_root_last();
 
 void FMPI_Init(int rank, int size, int root);
 
-void FMPI_Bcast(void *buffer, int count);
+void FMPI_Bcast(void *buffer, int count, int data_size);
 
 void FMPI_Scatter(void *sendbuff, int sendcount,
-                    void *recvbuff, int recvcount);
+                    void *recvbuff, int recvcount, int data_size);
 
 void FMPI_Gather(void *sendbuff, int sendcount,
-                    void *recvbuff, int recvcount);
+                    void *recvbuff, int recvcount, int data_size);

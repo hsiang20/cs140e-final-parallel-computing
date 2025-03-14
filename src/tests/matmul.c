@@ -8,6 +8,8 @@
 
 #define N 4  // Matrix size (NxN)
 
+typedef int8_t data_type;
+
 // Function to multiply a row of A with B and store in C
 void matmul(data_type A[], data_type B[N][N], data_type C[]) {
     for (int j = 0; j < N; j++) {
@@ -26,7 +28,7 @@ void notmain(void) {
     printk("rank: %d, size: %d\n", rank, size);
 
     FMPI_Init(rank, size, 0);
-    FMPI_Init_async(rank, size, 0);
+    // FMPI_Init_async(rank, size, 0);
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     // MPI_Comm_size(MPI_COMM_WORLD, &size);
 
@@ -62,21 +64,21 @@ void notmain(void) {
         printk("\n");
     }
 
-    if (rank == 1) {
-        rise_fall_int_startup();
-    }
+    // if (rank == 1) {
+    //     rise_fall_int_startup();
+    // }
 
     // Call an async put from rank 0
-    uint8_t text = 3;
-    if (rank == 0) {
-        gpio_set_off(TX_ASYNC);
-        FMPI_PUT(&text, 1);
-    }
+    // uint8_t text = 3;
+    // if (rank == 0) {
+    //     // gpio_set_off(TX_ASYNC);
+    //     FMPI_PUT(&text, 1);
+    // }
 
     printk("rank %d is here\n", rank);
 
     // Broadcast matrix B to all processes
-    FMPI_Bcast(B, N * N);
+    FMPI_Bcast(B, N * N, sizeof(data_type));
     // printk("%d done Bcast\n", rank);
 
     // int rows_per_process = N / size;  // Assuming N is divisible by size
@@ -87,7 +89,7 @@ void notmain(void) {
 
     // Scatter rows of A to different processes
     FMPI_Scatter(A, rows_per_process * N,
-                A_sub, rows_per_process * N);
+                A_sub, rows_per_process * N, sizeof(data_type));
     // printk("%d done Scatter\n", rank);
     // for (int i = 0; i < rows_per_process; i++) {
     //     printk("%d: ", rank);
@@ -104,7 +106,7 @@ void notmain(void) {
 
     // Gather results back into matrix C
     FMPI_Gather(C_sub, rows_per_process * N,
-                C, rows_per_process * N);
+                C, rows_per_process * N, sizeof(data_type));
     
     // printk("%d done Gather\n", rank);
     // for (int i = 0; i < rows_per_process; i++) {
@@ -129,5 +131,5 @@ void notmain(void) {
     delay_ms(DELAY_MS);
 
     // MPI_Finalize();
-    output("rank: %d finished\n", rank);
+    output("rank: %d finished!!\n", rank);
 }
