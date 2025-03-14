@@ -1,4 +1,4 @@
-#include "fmpi_async.h"
+#include "fmpi-async.h"
 
 static sw_uart_t u, u_async;
 static int _rank, _size, _root;
@@ -55,8 +55,16 @@ void sync_receiver() {
     send_signal_async(SYNC_SIGNAL);
 }
 
-void FMPI_PUT(void *buffer, int count) {
-    sync_me_last();
+void FMPI_PUT(uint32_t *buffer, uint32_t *address, int count) {
+    Packet *p;
+    p->data = *buffer;
+    p->address = *address;
+    p->command = 1;
+    
     // printk("sync: %d after sync_me_last!\n", _rank);
     send_async(buffer, count);
 }
+
+// command: 1 bytes (PUT: 1, GET: 2)
+// address: 4 bytes
+// data: 4 bytes

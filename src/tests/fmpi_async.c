@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "rpi.h"
-#include "fmpi.h"
+#include "fmpi-async.h"
 #include "test-interrupts.h"
 
 #define N 4  // Matrix size (NxN)
@@ -26,14 +26,15 @@ void notmain(void) {
 
     FMPI_Init_async(rank, size, 0);
 
-    uint8_t text = 3;
+    uint32_t text = 88;
+    uint32_t address = 0;
 
     if (rank == 0) {
         delay_ms(1000);
         // FMPI_PUT(&text, 1);
         // delay_ms(2000);
         gpio_set_off(TX_ASYNC);
-        FMPI_PUT(&text, 1);
+        FMPI_PUT(&text, &address, 1);
         delay_ms(3000);
     }
     if (rank == 1) {
