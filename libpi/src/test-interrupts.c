@@ -3,7 +3,7 @@
 #include "test-interrupts.h"
 #include "timer-interrupt.h"
 #include "vector-base.h"
-#include "fmpi.h"
+#include "fmpi-async.h"
 
 volatile int n_interrupt;
 

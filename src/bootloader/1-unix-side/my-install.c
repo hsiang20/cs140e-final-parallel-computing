@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
 
         // added 5. before send, change the header for id
         code[0] = i;
-        code[1] = 2;
+        code[1] = num_pis;
         // debug_output("header is now: %d\n", code[0]);
         simple_boot(fd, boot_addr, code, nbytes);
 
