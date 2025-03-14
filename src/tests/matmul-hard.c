@@ -6,7 +6,7 @@
 #include "fmpi.h"
 #include "test-interrupts.h"
 
-#define rows_per_process 128
+#define rows_per_process 64
 #define N 256  // Matrix size (NxN)
 
 typedef int32_t data_type;
