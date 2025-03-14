@@ -59,11 +59,12 @@ int falling_handler(uint32_t pc) {
         if (!gpio_read(in_pin)) {
             n_falling ++;
             printk("Get falling edge\n");
-            uint8_t buffer = 0;
-            sync_receiver();
+            uint8_t buffer;
+            sync_receiver(0);
             // printk("here\n");
-            recv_async(&buffer, 1);
-            printk("received: %d\n", buffer);
+            recv_async(&buffer, 0, 9, 1);
+            Packet *p = (Packet *)&buffer;
+            printk("%x\n", p->data);
             gpio_event_clear(in_pin);
             return 1;
         }

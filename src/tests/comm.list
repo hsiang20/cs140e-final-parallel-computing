@@ -506,7 +506,7 @@ Disassembly of section .text:
     873c:	cccccccd 	.word	0xcccccccd
     8740:	00009084 	.word	0x00009084
     8744:	00009090 	.word	0x00009090
-    8748:	000091fc 	.word	0x000091fc
+    8748:	000091e0 	.word	0x000091e0
 
 0000874c <vprintk>:
     874c:	e92d4030 	push	{r4, r5, lr}
@@ -678,7 +678,7 @@ Disassembly of section .text:
     89e4:	eb000012 	bl	8a34 <clean_reboot>
     89e8:	e28dd014 	add	sp, sp, #20, 0
     89ec:	e8bd8030 	pop	{r4, r5, pc}
-    89f0:	000091fc 	.word	0x000091fc
+    89f0:	000091e0 	.word	0x000091e0
     89f4:	00009110 	.word	0x00009110
     89f8:	0000904c 	.word	0x0000904c
     89fc:	000090a4 	.word	0x000090a4
@@ -698,7 +698,7 @@ Disassembly of section .text:
     8a24:	e5830000 	str	r0, [r3]
     8a28:	e1a00002 	mov	r0, r2
     8a2c:	e12fff1e 	bx	lr
-    8a30:	000091fc 	.word	0x000091fc
+    8a30:	000091e0 	.word	0x000091e0
 
 00008a34 <clean_reboot>:
     8a34:	e92d4010 	push	{r4, lr}
@@ -713,7 +713,7 @@ Disassembly of section .text:
 00008a54 <program_end>:
     8a54:	e59f0000 	ldr	r0, [pc]	; 8a5c <program_end+0x8>
     8a58:	e12fff1e 	bx	lr
-    8a5c:	00009200 	.word	0x00009200
+    8a5c:	000091e8 	.word	0x000091e8
 
 00008a60 <_cstart>:
     8a60:	e92d4030 	push	{r4, r5, lr}
@@ -758,12 +758,12 @@ Disassembly of section .text:
     8afc:	e59f0018 	ldr	r0, [pc, #24]	; 8b1c <_cstart+0xbc>
     8b00:	ebfffec2 	bl	8610 <printk>
     8b04:	ebffffca 	bl	8a34 <clean_reboot>
-    8b08:	00009200 	.word	0x00009200
-    8b0c:	00009200 	.word	0x00009200
+    8b08:	000091e4 	.word	0x000091e4
+    8b0c:	000091e8 	.word	0x000091e8
     8b10:	00009124 	.word	0x00009124
-    8b14:	000091ec 	.word	0x000091ec
+    8b14:	000091d0 	.word	0x000091d0
     8b18:	00009150 	.word	0x00009150
-    8b1c:	000091bc 	.word	0x000091bc
+    8b1c:	000091a0 	.word	0x000091a0
 
 00008b20 <dev_barrier>:
     8b20:	ea000002 	b	8b30 <dsb>
@@ -1054,7 +1054,7 @@ Disassembly of section .text:
     8f04:	eafffff7 	b	8ee8 <putk+0x8>
     8f08:	e3a00001 	mov	r0, #1, 0
     8f0c:	e8bd8010 	pop	{r4, pc}
-    8f10:	000091fc 	.word	0x000091fc
+    8f10:	000091e0 	.word	0x000091e0
 
 00008f14 <__code_end__>:
     8f14:	00000000 	.word	0x00000000

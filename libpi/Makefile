@@ -10,6 +10,7 @@ SRC += src/gpio.c
 SRC += src/uart.c
 SRC += src/sw-uart.c
 SRC += src/fmpi.c
+SRC += src/fmpi-async.c
 SRC += src/test-interrupts.c
 SRC += src/gpio-int.c
 SRC += src/interrupt-vec.c interrupt-asm.S 

@@ -28,7 +28,7 @@ typedef struct {
 
 void FMPI_Init_async(int rank, int size, int root);
 void send_async(void *buffer, int recv_pi, int count, int data_size);
-void recv_async(void *buffer, int send_pi, int count, int data_size);
+void recv_async(uint8_t *buffer, int send_pi, int count, int data_size);
 void send_signal_async(int recv_pi, uint8_t signal);
 void wait_signal_async(int send_pi, uint8_t signal);
 int wait_signal_timeout_async(int recv_pi, uint8_t signal, uint32_t msec);

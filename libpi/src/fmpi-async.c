@@ -24,15 +24,17 @@ void FMPI_Init_async(int rank, int size, int root) {
 
 void send_async(void *buffer, int recv_pi, int count, int data_size) {
     for (int i = 0; i < count * data_size; i++) {
-        sw_uart_put8(&u_async[recv_pi], ((char *)buffer)[i]);
+        sw_uart_put8(&u_async[recv_pi], ((uint8_t *)buffer)[i]);
+        printk("SEND_ASYNC: sent %x\n", ((uint8_t *)buffer)[i]);
     }
 }
 
-void recv_async(void *buffer, int send_pi, int count, int data_size) {
+void recv_async(uint8_t *buffer, int send_pi, int count, int data_size) {
+    uint8_t data[count * data_size];
     for (int i = 0; i < count * data_size; i++) {
-        int val = sw_uart_get8(&u_async[send_pi]);
-        ((char *)buffer)[i] = val;
+        buffer[i] = sw_uart_get8(&u_async[send_pi]);
     }
+    printk("RECV_ASYNC finished! got data %x %x %x %x\n", buffer[5], buffer[6], buffer[7], buffer[8]);
 }
 
 void send_signal_async(int recv_pi, uint8_t signal) {
@@ -65,16 +67,18 @@ void sync_receiver(int send_pi) {
 }
 
 void FMPI_PUT(int recv_pi, uint32_t *buffer, uint32_t *address) {
-    Packet *p;
-    p->data = *buffer;
-    p->address = *address;
-    p->command = 1;
+    Packet p;
+    p.data = *buffer;
+    p.address = *address;
+    p.command = 1;
     
     int data_size = 9;
     // printk("sync: %d after sync_me_last!\n", _rank);
     gpio_set_on(TX_ASYNC);
     gpio_set_off(TX_ASYNC);
-    send_async(recv_pi, p, 1, data_size);
+    send_async(&p, recv_pi, 1, data_size);
+
+    printk("FMPI_PUT finished! sent data %x\n", p.data);
 }
 
 // command: 1 bytes (PUT: 1, GET: 2)

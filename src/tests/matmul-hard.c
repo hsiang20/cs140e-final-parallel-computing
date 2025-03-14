@@ -6,7 +6,7 @@
 #include "fmpi.h"
 #include "test-interrupts.h"
 
-#define rows_per_process 128
+#define rows_per_process 64
 #define N 256  // Matrix size (NxN)
 
 typedef int32_t data_type;
@@ -99,7 +99,8 @@ void notmain(void) {
     FMPI_Bcast(B, N * N, sizeof(data_type));
     // printk("%d done Bcast\n", rank);
 
-    // int rows_per_process = N / size;  // Assuming N is divisible by size
+
+    // int rows_per_process = 256 / size;  // Assuming N is divisible by size
     // assert(N == 4);
     // assert(size == 2);
     data_type A_sub[rows_per_process][N], C_sub[rows_per_process][N];
