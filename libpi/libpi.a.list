@@ -7699,7 +7699,7 @@ Disassembly of section .text:
  1e0:	e2861008 	add	r1, r6, #8, 0
  1e4:	e1a02086 	lsl	r2, r6, #1
  1e8:	e28d5008 	add	r5, sp, #8, 0
- 1ec:	e3a03008 	mov	r3, #8, 0
+ 1ec:	e3a03002 	mov	r3, #2, 0
  1f0:	e58d3004 	str	r3, [sp, #4]
  1f4:	e59f30a4 	ldr	r3, [pc, #164]	; 2a0 <FMPI_Init+0x118>
  1f8:	e58d3000 	str	r3, [sp]
@@ -7724,7 +7724,7 @@ Disassembly of section .text:
  244:	1affffe5 	bne	1e0 <FMPI_Init+0x58>
  248:	eafffff5 	b	224 <FMPI_Init+0x9c>
  24c:	e28d5008 	add	r5, sp, #8, 0
- 250:	e3a03008 	mov	r3, #8, 0
+ 250:	e3a03002 	mov	r3, #2, 0
  254:	e58d3004 	str	r3, [sp, #4]
  258:	e59f3040 	ldr	r3, [pc, #64]	; 2a0 <FMPI_Init+0x118>
  25c:	e58d3000 	str	r3, [sp]
@@ -7743,8 +7743,8 @@ Disassembly of section .text:
  290:	0000003c 	andeq	r0, r0, ip, lsr r0
 	...
  29c:	0000000c 	andeq	r0, r0, ip
- 2a0:	000017bc 			; <UNDEFINED> instruction: 0x000017bc
- 2a4:	0001c200 	andeq	ip, r1, r0, lsl #4
+ 2a0:	000005ef 	andeq	r0, r0, pc, ror #11
+ 2a4:	00070800 	andeq	r0, r7, r0, lsl #16
 
 000002a8 <FMPI_Bcast>:
  2a8:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
@@ -8913,11 +8913,11 @@ Disassembly of section .debug_info:
      e98:	76065201 	strvc	r5, [r6], -r1, lsl #4
      e9c:	23243100 			; <UNDEFINED> instruction: 0x23243100
      ea0:	53012b11 	movwpl	r2, #6929	; 0x1b11
-     ea4:	39e10804 	stmibcc	r1!, {r2, fp}^
+     ea4:	3be10804 	blcc	ff842ebc <FMPI_Gather+0xff842aa4>
      ea8:	7d022b24 	vstrvc	d2, [r2, #-144]	; 0xffffff70
-     eac:	bc0a0300 	stclt	3, cr0, [sl], {-0}
-     eb0:	7d022b17 	vstrvc	d2, [r2, #-92]	; 0xffffffa4
-     eb4:	00380104 	eorseq	r0, r8, r4, lsl #2
+     eac:	ef0a0300 	svc	0x000a0300
+     eb0:	7d022b05 	vstrvc	d2, [r2, #-20]	; 0xffffffec
+     eb4:	00320104 	eorseq	r0, r2, r4, lsl #2
      eb8:	dc2a0000 	stcle	0, cr0, [sl], #-0
      ebc:	20000001 	andcs	r0, r0, r1
      ec0:	f3000013 	vqadd.u8	d0, d0, d3
@@ -8942,11 +8942,11 @@ Disassembly of section .debug_info:
      f0c:	40015101 	andmi	r5, r1, r1, lsl #2
      f10:	0152012b 	cmpeq	r2, fp, lsr #2
      f14:	53012b41 	movwpl	r2, #6977	; 0x1b41
-     f18:	39e10804 	stmibcc	r1!, {r2, fp}^
+     f18:	3be10804 	blcc	ff842f30 <FMPI_Gather+0xff842b18>
      f1c:	7d022b24 	vstrvc	d2, [r2, #-144]	; 0xffffff70
-     f20:	bc0a0300 	stclt	3, cr0, [sl], {-0}
-     f24:	7d022b17 	vstrvc	d2, [r2, #-92]	; 0xffffffa4
-     f28:	00380104 	eorseq	r0, r8, r4, lsl #2
+     f20:	ef0a0300 	svc	0x000a0300
+     f24:	7d022b05 	vstrvc	d2, [r2, #-20]	; 0xffffffec
+     f28:	00320104 	eorseq	r0, r2, r4, lsl #2
      f2c:	013c0b00 	teqeq	ip, r0, lsl #22
      f30:	0f3d0000 	svceq	0x003d0000
      f34:	2c0c0000 	stccs	0, cr0, [ip], {-0}

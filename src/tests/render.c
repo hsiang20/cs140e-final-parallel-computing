@@ -8,7 +8,7 @@
 #define DEBUG 0
 
 #define N 128
-#define rows_per_process (N / 2)
+#define rows_per_process (N / 4)
 #define NUM_CIRCLES 1000
 
 typedef uint8_t data_type;

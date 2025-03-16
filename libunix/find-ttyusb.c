@@ -163,9 +163,9 @@ char *find_ttyusb_first(void) {
 char* find_ttyusb_i(int i) {
     if (i == 0) {
         return find_ttyusb_first();
-    } else if (i == 1) {
+    } else if (i <= 4) {
         return find_ttyusb_first();
     } else {
-        panic("find_ttyusb(i) only allows i <= 2");
+        panic("find_ttyusb(i) only allows i <= 4");
     }
 }
