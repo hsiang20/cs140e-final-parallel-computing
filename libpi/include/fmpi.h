@@ -11,7 +11,8 @@
 
 #define BASE_TX 16
 #define BASE_RX 17
-#define BAUD_RATE 115200
+#define BAUD_RATE (115200 * 4)
+// #define BAUD_RATE 460800
 
 #define SEND_SIGNAL 5
 #define SYNC_SIGNAL 7

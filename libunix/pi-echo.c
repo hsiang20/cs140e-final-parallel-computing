@@ -4,7 +4,7 @@
 #include "libunix.h"
 
 #include <stdio.h>
-#define RENDER 1
+#define RENDER 0
 
 #define N 128
 typedef uint8_t data_type;
