@@ -150,9 +150,10 @@ void pi_echo(int unix_fd, PiDevice* devices, int num_pis) {
                 }
             }
             if (count == num_pis) {
-                output("n_total: %d\n", n_total);
-                if (RENDER)
+                if (RENDER) {
+                    output("n_total: %d\n", n_total);
                     write_image(image);
+                }
                 free(done);
                 clean_exit("\nbootloader: pi exited.  cleaning up\n");
             }
