@@ -153,5 +153,5 @@ void notmain(void) {
     delay_ms(DELAY_MS);
 
     // MPI_Finalize();
-    output("rank: %d finished!!\n", rank);
+    // output("rank: %d finished!!\n", rank);
 }

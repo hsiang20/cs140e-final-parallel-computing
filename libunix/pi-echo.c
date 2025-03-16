@@ -3,6 +3,15 @@
 #include <unistd.h>
 #include "libunix.h"
 
+#include <stdio.h>
+#define RENDER 1
+
+#define N 128
+typedef uint8_t data_type;
+
+static int32_t image[N][N][3];
+static int x = 0, y = 0, idx = 0;
+
 // hack-y state machine to indicate when we've seen the special string
 // 'DONE!!!' from the pi telling us to shutdown.
 int pi_done(unsigned char *s) {
@@ -36,6 +45,44 @@ void remove_nonprint(uint8_t *buf, int n) {
     }
 }
 
+
+int update_pixel() {
+    if (++idx == 3) {
+        idx = 0;
+        if (++y == N) {
+            y = 0;
+            x++;
+        }
+    }
+    return x == N;
+}
+
+void update_image(unsigned char buf[4096], int n) {
+    if (n % sizeof(data_type) != 0)
+        output("n: %d not aligned %lu\n", n, sizeof(data_type));
+
+    for (int i = 0; i < n / sizeof(data_type); i++) {
+        image[x][y][idx] = ((data_type *)buf)[i];
+        if (update_pixel()) return;
+    }
+}
+
+void write_image(int32_t image[N][N][3]) {
+    FILE *file = fopen("images/image.ppm", "w");
+    if (file) {
+        fprintf(file, "P3\n%d %d\n255\n", N, N);
+        for (int y = 0; y < N; y++) {
+            for (int x = 0; x < N; x++) {
+                fprintf(file, "%d %d %d ", image[y][x][0], image[y][x][1], image[y][x][2]);
+            }
+            fprintf(file, "\n");
+        }
+        fclose(file);
+    } else {
+        printf("Failed to write the file!\n");
+    }
+}
+
 // read and echo the characters from the usbtty until it closes 
 // (pi rebooted) or we see a string indicating a clean shutdown.
 // void pi_echo(int unix_fd, int pi_fd, const char *portname) {
@@ -50,6 +97,10 @@ void pi_echo(int unix_fd, PiDevice* devices, int num_pis) {
 
     int *done = malloc(num_pis * sizeof(int));
     int count = 0;
+    
+    // added
+    int n_total = 0;
+    // 
     while(1) {
         unsigned char buf[4096];
         for (int i = 0; i < num_pis; i++) {
@@ -82,9 +133,14 @@ void pi_echo(int unix_fd, PiDevice* devices, int num_pis) {
                 sys_die(read, "pi connection %s closed.  cleaning up\n", portname);
             } else {
                 buf[n] = 0;
-                // if you keep getting "" "" "" it's b/c of the GET_CODE message from bootloader
-                remove_nonprint(buf,n);
-                output("%s", buf);
+                if (RENDER && i == 0 && x < N) {
+                    update_image(buf, n);
+                    n_total += n;
+                } else {
+                    // if you keep getting "" "" "" it's b/c of the GET_CODE message from bootloader
+                    remove_nonprint(buf,n);
+                    output("%s", buf);
+                }
 
                 if(pi_done(buf)) {
                     // output("\nSaw done\n");
@@ -94,6 +150,9 @@ void pi_echo(int unix_fd, PiDevice* devices, int num_pis) {
                 }
             }
             if (count == num_pis) {
+                output("n_total: %d\n", n_total);
+                if (RENDER)
+                    write_image(image);
                 free(done);
                 clean_exit("\nbootloader: pi exited.  cleaning up\n");
             }
