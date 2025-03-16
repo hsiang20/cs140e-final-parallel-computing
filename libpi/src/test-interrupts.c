@@ -26,7 +26,7 @@ void interrupt_vector(unsigned pc) {
 //
 // make sure you understand how this works.
 void test_startup(init_fn_t init_fn, interrupt_fn_t int_fn) {
-    output("\tImportant: must loop back (attach a jumper to) pins 16 & 17\n");
+    // output("\tImportant: must loop back (attach a jumper to) pins 16 & 17\n");
 
     // initialize.
     extern uint32_t interrupt_vec[];
@@ -59,12 +59,27 @@ int falling_handler(uint32_t pc) {
         if (!gpio_read(in_pin)) {
             n_falling ++;
             printk("Get falling edge\n");
-            uint8_t buffer;
-            sync_receiver(0);
-            // printk("here\n");
-            recv_async(&buffer, 0, 9, 1);
-            Packet *p = (Packet *)&buffer;
-            printk("%x\n", p->data);
+            uint8_t buffer[9];
+            int sync_success = sync_receiver(0);
+            if (sync_success == 0) {
+                gpio_event_clear(in_pin);
+                printk("I'm out\n");
+                return 1;
+            }
+            recv_async(buffer, 0, 9, 1);
+            Packet *p = (Packet *)buffer;
+            printk("Get command: %x, address: %x, data: %x\n", p->command, p->address, p->data);
+            
+            // Resend if command == 2
+            // uint32_t data = 0x66666666;
+            delay_ms(DELAY_MS);
+            if (p->command == 1) {
+                PUT32(p->address, p->data);
+            }
+            else if (p->command == 2) {
+                uint32_t data = GET32(p->address);
+                send_async(&data, 0, 1, 4);
+            }
             gpio_event_clear(in_pin);
             return 1;
         }

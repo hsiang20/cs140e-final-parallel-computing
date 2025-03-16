@@ -25,16 +25,16 @@ void FMPI_Init_async(int rank, int size, int root) {
 void send_async(void *buffer, int recv_pi, int count, int data_size) {
     for (int i = 0; i < count * data_size; i++) {
         sw_uart_put8(&u_async[recv_pi], ((uint8_t *)buffer)[i]);
-        printk("SEND_ASYNC: sent %x\n", ((uint8_t *)buffer)[i]);
+        // printk("SEND_ASYNC: sent %x\n", ((uint8_t *)buffer)[i]);
     }
 }
 
 void recv_async(uint8_t *buffer, int send_pi, int count, int data_size) {
-    uint8_t data[count * data_size];
     for (int i = 0; i < count * data_size; i++) {
         buffer[i] = sw_uart_get8(&u_async[send_pi]);
     }
-    printk("RECV_ASYNC finished! got data %x %x %x %x\n", buffer[5], buffer[6], buffer[7], buffer[8]);
+    // printk("RECV_ASYNC finished! got data %x %x %x %x\n", buffer[5], buffer[6], buffer[7], buffer[8]);
+    
 }
 
 void send_signal_async(int recv_pi, uint8_t signal) {
@@ -59,11 +59,12 @@ void sync_me_last(int recv_pi) {
     }
 }
 
-void sync_receiver(int send_pi) {
+int sync_receiver(int send_pi) {
     int get_signal = wait_signal_timeout_async(send_pi, SYNC_SIGNAL, 1000);
-    if (get_signal == -1) return;
+    if (get_signal == -1) return 0;
     delay_ms(DELAY_MS);
     send_signal_async(send_pi, SYNC_SIGNAL);
+    return 1;
 }
 
 void FMPI_PUT(int recv_pi, uint32_t *buffer, uint32_t *address) {
@@ -73,14 +74,25 @@ void FMPI_PUT(int recv_pi, uint32_t *buffer, uint32_t *address) {
     p.command = 1;
     
     int data_size = 9;
-    // printk("sync: %d after sync_me_last!\n", _rank);
-    gpio_set_on(TX_ASYNC);
+    // gpio_set_on(TX_ASYNC);
     gpio_set_off(TX_ASYNC);
-    send_async(&p, recv_pi, 1, data_size);
-
-    printk("FMPI_PUT finished! sent data %x\n", p.data);
+    sync_me_last(recv_pi);
+    send_async((uint8_t *)&p, recv_pi, 1, data_size);
 }
 
-// command: 1 bytes (PUT: 1, GET: 2)
-// address: 4 bytes
-// data: 4 bytes
+uint32_t FMPI_GET(int recv_pi, uint32_t *address) {
+    Packet p;
+    p.data = 0;
+    p.address = *address;
+    p.command = 2;
+    
+    int data_size = 9;
+    // gpio_set_on(TX_ASYNC);
+    gpio_set_off(TX_ASYNC);
+    sync_me_last(recv_pi);
+    send_async((uint8_t *)&p, recv_pi, 1, data_size);
+
+    uint8_t recv_p[4];
+    recv_async(recv_p, recv_pi, 4, 1);
+    return *(uint32_t *)recv_p;
+}

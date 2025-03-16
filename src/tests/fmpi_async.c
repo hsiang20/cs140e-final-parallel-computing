@@ -27,7 +27,9 @@ void notmain(void) {
     FMPI_Init_async(rank, size, 0);
 
     uint32_t text = 0xDEADBEEF;
-    uint32_t address = 0;
+    uint32_t address = STACK_ADDR;
+    // uint32_t data = 0x66666666;
+    uint32_t data_get;
 
     if (rank == 0) {
         delay_ms(3000);
@@ -35,12 +37,15 @@ void notmain(void) {
         // delay_ms(2000);
         // gpio_set_off(TX_ASYNC);
         FMPI_PUT(1, &text, &address);
+        printk("NOTMAIN: data put = %x\n", text);
+        data_get = FMPI_GET(1, &address);
+        printk("NOTMAIN: data get = %x\n", data_get);
         delay_ms(3000);
     }
     if (rank == 1) {
         // for gpio interrupt
         rise_fall_int_startup();
-        delay_ms(10000);
+        delay_ms(5000);
     }
 
     delay_ms(DELAY_MS);

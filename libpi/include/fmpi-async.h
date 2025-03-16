@@ -19,7 +19,11 @@ typedef int8_t data_type;
 #define DELAY_MS 20
 #define TIMEOUT_MS 100
 
-typedef struct {
+
+// command: 1 bytes (PUT: 1, GET: 2)
+// address: 4 bytes
+// data: 4 bytes
+typedef struct __attribute__((packed, scalar_storage_order("big-endian"))) {
     uint8_t command;       
     uint32_t address;      
     uint32_t data;         
@@ -33,5 +37,6 @@ void send_signal_async(int recv_pi, uint8_t signal);
 void wait_signal_async(int send_pi, uint8_t signal);
 int wait_signal_timeout_async(int recv_pi, uint8_t signal, uint32_t msec);
 void sync_me_last(int recv_pi);
-void sync_receiver(int send_pi);
+int sync_receiver(int send_pi);
 void FMPI_PUT(int recv_pi, uint32_t *buffer, uint32_t *address);
+uint32_t FMPI_GET(int recv_pi, uint32_t *address);
