@@ -11,14 +11,15 @@
 
 #define BASE_TX 16
 #define BASE_RX 17
-#define BAUD_RATE (115200 * 4)
+#define BAUD_RATE (115200 * 6)
 // #define BAUD_RATE 460800
 
 #define SEND_SIGNAL 5
 #define SYNC_SIGNAL 7
+#define GO_SIGNAL 11
 
-#define DELAY_MS 20
-#define TIMEOUT_MS 100
+#define DELAY_MS 70
+#define TIMEOUT_MS 200
 
 void send(void *buffer, int recv_pi, int count, int data_size);
 void recv(void *buffer, int send_pi, int count, int data_size);
@@ -30,7 +31,7 @@ int wait_signal_timeout(int recv_pi, uint8_t signal, uint32_t msec);
 void sync_root_first();
 void sync_root_last();
 
-void FMPI_Init(int rank, int size, int root);
+void FMPI_Init(uint8_t *rank, uint8_t *size, int root);
 
 void FMPI_Bcast(void *buffer, int count, int data_size);
 

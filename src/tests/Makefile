@@ -6,6 +6,7 @@ PROGS = matmul-hard.c
 # PROGS = mergesort.c
 # PROGS = fmpi_async.c
 # PROGS = render.c
+PROGS = fmpi-test.c
 
 BOOTLOADER = parallel-install
 

@@ -6,8 +6,8 @@
 #include "fmpi.h"
 #include "test-interrupts.h"
 
-#define rows_per_process 60
-#define N 240  // Matrix size (NxN)
+#define rows_per_process 128
+#define N 512  // Matrix size (NxN)
 
 typedef int32_t data_type;
 
@@ -16,15 +16,15 @@ void generate_matrices(data_type A[N][N], data_type B[N][N], data_type result[N]
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             A[i][j] = i + 1;
-            B[i][j] = 0;  // B is all ones
+            B[i][j] = 1;  // B is all ones
         }
     }
 
     // Calculate the expected result: each row sums to (i+1) * N
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            // result[i][j] = (i + 1) * N;
-            result[i][j] = 0;
+            result[i][j] = (i + 1) * N;
+            // result[i][j] = 0;
         }
     }
 }
@@ -55,12 +55,18 @@ int verify_result(data_type C[N][N], data_type expected[N][N]) {
 }
 
 // Function to multiply a row of A with B and store in C
-void matmul(data_type A[], data_type B[N][N], data_type C[]) {
+void matmul(data_type A[], data_type B[N][N], data_type C[], int rank, int i) {
     for (int j = 0; j < N; j++) {
         C[j] = 0;
         for (int k = 0; k < N; k++) {
             C[j] += A[k] * B[k][j];
-            assert(B[k][j] == 0);
+            // assert(B[k][j] == 0);
+            // if (A[k] != (rank*rows_per_process+i+1)) {
+            //     printk("rank: %d, A[%d][%d] is %d\n", rank, rank*rows_per_process+i+1, k, A[k]);
+            // }
+            // if (B[k][j] != 0) {
+            //     printk("rank: %d, B[%d][%d] is %d\n", rank, k, j, B[k][j]);
+            // }
         }
     }
 }
@@ -68,11 +74,9 @@ void matmul(data_type A[], data_type B[N][N], data_type C[]) {
 // int main(int argc, char* argv[]) {
 void notmain(void) {
     uart_init();
-    const uint8_t rank = *(uint8_t *)(0x8000);
-    const uint8_t size = *(uint8_t *)(0x8000 + 1);
+    uint8_t rank, size;
+    FMPI_Init(&rank, &size, 0);
     printk("rank: %d, size: %d\n", rank, size);
-
-    FMPI_Init(rank, size, 0);
     // FMPI_Init_async(rank, size, 0);
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     // MPI_Comm_size(MPI_COMM_WORLD, &size);
@@ -100,6 +104,7 @@ void notmain(void) {
 
     // Broadcast matrix B to all processes
     FMPI_Bcast(B, N * N, sizeof(data_type));
+    // memset(B, 0, sizeof(B));
     printk("%d done Bcast\n", rank);
 
 
@@ -122,7 +127,7 @@ void notmain(void) {
 
     // Compute local matrix multiplication
     for (int i = 0; i < rows_per_process; i++) {
-        matmul(A_sub[i], B, C_sub[i]);
+        matmul(A_sub[i], B, C_sub[i], rank, i);
     }
     printk("%d done computation\n", rank);
 
@@ -147,13 +152,11 @@ void notmain(void) {
         } else {
             printk("Matrix multiplication failed verification.\n");
         }
-        uint32_t start_one = cycle_cnt_read();
-        matrix_multiply(A, B, C);
-        uint32_t end_one = cycle_cnt_read();
-        printk("num_cycles for %d: %d\n", size, end - start);
-        printk("num_cycles for 1: %d\n", end_one - start_one);
-    } else {
-        printk("C_sub[%d][0]: %d\n", 64 * rank, C_sub[0][0]);
+        // uint32_t start_one = cycle_cnt_read();
+        // matrix_multiply(A, B, C);
+        // uint32_t end_one = cycle_cnt_read();
+        // printk("num_cycles for %d: %d\n", size, end - start);
+        // printk("num_cycles for 1: %d\n", end_one - start_one);
     }
 
     delay_ms(DELAY_MS);

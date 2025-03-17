@@ -98,11 +98,10 @@ uint32_t elapsed_cycles(uint32_t start, uint32_t end) {
 
 void notmain(void) {
     uart_init();
-    const uint8_t rank = *(uint8_t *)(0x8000);
-    const uint8_t size = *(uint8_t *)(0x8000 + 1);
+    uint8_t rank, size;
     const uint8_t root = 0;
 
-    FMPI_Init(rank, size, root);
+    FMPIT_Init(&rank, &size, root);
 
     if (rank == root) {
         for (int i = 0; i < NUM_CIRCLES; i++) {
