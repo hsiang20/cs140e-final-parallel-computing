@@ -42,12 +42,12 @@ void sync_root_last() {
             } while (wait_signal_timeout(i, SYNC_SIGNAL, TIMEOUT_MS) != SYNC_SIGNAL);
         }
         // after all ready
-        for (int i = 0; i < _size; i++) {
-            if (i == _root) continue;
-            do {
-                send_signal(i, GO_SIGNAL);
-            } while (wait_signal_timeout(i, GO_SIGNAL, TIMEOUT_MS) != GO_SIGNAL);
-        }
+        // for (int i = 0; i < _size; i++) {
+        //     if (i == _root) continue;
+        //     do {
+        //         send_signal(i, GO_SIGNAL);
+        //     } while (wait_signal_timeout(i, GO_SIGNAL, TIMEOUT_MS) != GO_SIGNAL);
+        // }
     } else {
         wait_signal(_root, SYNC_SIGNAL);
         // printk("%d got SYNC_SIGNAL\n", _rank);
@@ -56,10 +56,10 @@ void sync_root_last() {
         
         // printk("%d ready\n", _rank);
         // wait for all ready signal
-        wait_signal(_root, GO_SIGNAL);
+        // wait_signal(_root, GO_SIGNAL);
         // printk("%d got GO_SIGNAL\n", _rank);
-        delay_ms(DELAY_MS);
-        send_signal(_root, GO_SIGNAL);
+        // delay_ms(DELAY_MS);
+        // send_signal(_root, GO_SIGNAL);
     }
     // printk("%d out of sync\n", _rank);
 }
@@ -88,17 +88,17 @@ void FMPI_Bcast(void *buffer, int count, int data_size) {
     if (_rank == _root) {
         for (int i = 0; i < _size; i++) {
             if (i == _root) continue;
-            // delay_ms(DELAY_MS*50);
-            wait_signal(i, SEND_SIGNAL);
-            delay_ms(DELAY_MS);
-            send_signal(i, SEND_SIGNAL);
-            delay_ms(DELAY_MS);
+            // delay_ms(DELAY_MS);
+            // wait_signal(i, SEND_SIGNAL);
+            // delay_ms(DELAY_MS);
+            // send_signal(i, SEND_SIGNAL);
+            // delay_ms(DELAY_MS);
             send(buffer, i, count, data_size);
         }
     } else {
-        do {
-            send_signal(_root, SEND_SIGNAL);
-        } while (wait_signal_timeout(_root, SEND_SIGNAL, TIMEOUT_MS) != SEND_SIGNAL);
+        // do {
+        //     send_signal(_root, SEND_SIGNAL);
+        // } while (wait_signal_timeout(_root, SEND_SIGNAL, TIMEOUT_MS) != SEND_SIGNAL);
         recv(buffer, _root, count, data_size);
     }
 }
@@ -113,18 +113,18 @@ void FMPI_Scatter(void *sendbuff, int sendcount,
     if (_rank == _root) {
         for (int i = 0; i < _size; i++) {
             if (i == _root) continue;
+            delay_ms(DELAY_MS);
+            // wait_signal(i, SEND_SIGNAL);
             // delay_ms(DELAY_MS);
-            wait_signal(i, SEND_SIGNAL);
-            delay_ms(DELAY_MS);
-            send_signal(i, SEND_SIGNAL);
-            delay_ms(DELAY_MS);
+            // send_signal(i, SEND_SIGNAL);
+            // delay_ms(DELAY_MS);
             send((char *)sendbuff + i * sendcount * data_size, i, sendcount, data_size);
         }
         memcpy(recvbuff, sendbuff, recvcount * data_size);
     } else {
-        do {
-            send_signal(_root, SEND_SIGNAL);
-        } while (wait_signal_timeout(_root, SEND_SIGNAL, TIMEOUT_MS) != SEND_SIGNAL);
+        // do {
+        //     send_signal(_root, SEND_SIGNAL);
+        // } while (wait_signal_timeout(_root, SEND_SIGNAL, TIMEOUT_MS) != SEND_SIGNAL);
         recv(recvbuff, _root, recvcount, data_size);
     }
 }
@@ -144,17 +144,17 @@ void FMPI_Gather(void *sendbuff, int sendcount,
             // do {
             //     send_signal(i, SEND_SIGNAL);
             // } while (wait_signal_timeout(i, SEND_SIGNAL, TIMEOUT_MS) != SEND_SIGNAL);    
-            wait_signal(i, SEND_SIGNAL);
-            delay_ms(DELAY_MS);
+            // wait_signal(i, SEND_SIGNAL);
+            // delay_ms(DELAY_MS);
             send_signal(i, SEND_SIGNAL);
             recv((char *)recvbuff + i * sendcount * data_size, i, sendcount, data_size);
         }
         memcpy(recvbuff, sendbuff, recvcount * data_size);
     } else {
-        do {
-            send_signal(_root, SEND_SIGNAL);
-        } while (wait_signal_timeout(_root, SEND_SIGNAL, TIMEOUT_MS) != SEND_SIGNAL);
-        // wait_signal(_root, SEND_SIGNAL);
+        // do {
+        //     send_signal(_root, SEND_SIGNAL);
+        // } while (wait_signal_timeout(_root, SEND_SIGNAL, TIMEOUT_MS) != SEND_SIGNAL);
+        wait_signal(_root, SEND_SIGNAL);
         // delay_ms(DELAY_MS);
         // send_signal(_root, SEND_SIGNAL);
         delay_ms(DELAY_MS);

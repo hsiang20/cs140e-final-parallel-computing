@@ -93,7 +93,7 @@ sw_uart_default(void) {
 // of seconds.
 static inline int sw_uart_get8(sw_uart_t *s) {
     // if timeout w/in 5 seconds there must be an issue.
-    unsigned sec = 5;
+    unsigned sec = 500;
 
     int c = sw_uart_get8_timeout(s, 1000*1000*sec);
     // if(c<0)
