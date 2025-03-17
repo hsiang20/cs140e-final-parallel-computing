@@ -35,7 +35,7 @@ void sync_root_last() {
     // printk("%d in sync\n", _rank);
     if (_rank == _root) {
         for (int i = 0; i < _size; i++) {
-            printk("%d\n", i);
+            // printk("%d\n", i);
             if (i == _root) continue;
             do {
                 send_signal(i, SYNC_SIGNAL);

@@ -8,8 +8,8 @@
 #define DEBUG 0
 
 #define N 128
-#define rows_per_process (N / 4)
-#define NUM_CIRCLES 1000
+#define rows_per_process (N/4)
+#define NUM_CIRCLES 10000
 
 typedef uint8_t data_type;
 typedef int32_t len_type;
@@ -101,7 +101,7 @@ void notmain(void) {
     uint8_t rank, size;
     const uint8_t root = 0;
 
-    FMPIT_Init(&rank, &size, root);
+    FMPI_Init(&rank, &size, root);
 
     if (rank == root) {
         for (int i = 0; i < NUM_CIRCLES; i++) {
@@ -148,20 +148,21 @@ void notmain(void) {
         // delay_ms(100);
 
 
-        data_type image_sub2[N][N][3] = {0};
-        cycle_cnt_init();
-        delay_ms(10);
-        uint32_t start_one = cycle_cnt_read();
-        render_all(image_sub2);
-        uint32_t end_one = cycle_cnt_read();
+        // data_type image_sub2[N][N][3] = {0};
+        // cycle_cnt_init();
+        // delay_ms(10);
+        // uint32_t start_one = cycle_cnt_read();
+        // render_all(image_sub2);
+        // uint32_t end_one = cycle_cnt_read();
+
         // send_back_to_laptop(image_sub2);
         
         // delay_ms(500);
         
-        printk("start_one: %u\n", start_one);
-        printk("end_one  : %u\n", end_one);
-        printk("num_cycles for 2: %u\n", elapsed_cycles(start, end));
-        printk("num_cycles for 1: %u\n", elapsed_cycles(start_one, end_one));
+        // printk("start_one: %u\n", start_one);
+        // printk("end_one  : %u\n", end_one);
+        printk("num_cycles for %d: %u\n", size, elapsed_cycles(start, end));
+        // printk("num_cycles for 1: %u\n", elapsed_cycles(start_one, end_one));
 
     }
     delay_ms(100);
