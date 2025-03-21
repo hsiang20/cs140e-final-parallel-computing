@@ -40,3 +40,5 @@ void FMPI_Scatter(void *sendbuff, int sendcount,
 
 void FMPI_Gather(void *sendbuff, int sendcount,
                     void *recvbuff, int recvcount, int data_size);
+
+void FMPI_Barrier();

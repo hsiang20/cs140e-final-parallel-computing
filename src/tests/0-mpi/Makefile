@@ -1,23 +1,14 @@
-PROGS = hello.c
-# PROGS = comm.c
-
-PROGS = fmpi-test.c
-# PROGS = fmpi_async.c
-
-# PROGS = matmul.c
-# PROGS = matmul-hard.c
-# PROGS = gpio_int.c
-# PROGS = mergesort.c
-# PROGS = render.c
-
+# PROGS = fmpi-test.c
+PROGS = fmpi-async.c
 
 
 BOOTLOADER = parallel-install
 
-NUM_PI = 2
 
 # set to 1 if you want to run.
 RUN=1
+
+NUM_PI = 2
 
 L := $(CS140E_2025_FINAL_PATH)/libpi/
 

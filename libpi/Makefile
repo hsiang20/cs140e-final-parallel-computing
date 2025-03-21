@@ -14,6 +14,8 @@ SRC += src/fmpi-async.c
 SRC += src/test-interrupts.c
 SRC += src/gpio-int.c
 SRC += src/interrupt-vec.c interrupt-asm.S 
+# SRC += src/timer-int.c
+# SRC += src/interrupts-asm.S staff-start.S
 
 # if you want to use your own pullup-puldown
 # 1. put it in src/gpio-pud.c)

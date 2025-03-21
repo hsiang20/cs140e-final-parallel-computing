@@ -251,7 +251,7 @@ $(progs_bin): %.bin: $(BUILD_DIR)/%.elf %.list $(DEPS)
 	$(OCP) $(BUILD_DIR)/$*.elf -O binary $*.bin
 
 %.run: %.bin
-	$(BOOTLOADER) 2 $(TTYUSB) ./$<
+	$(BOOTLOADER) $(NUM_PI) $(TTYUSB) ./$<
 run: $(progs_run)
 
 ifneq ($(CAN_EMIT), 0)

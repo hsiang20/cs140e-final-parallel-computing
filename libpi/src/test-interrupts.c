@@ -58,7 +58,7 @@ int falling_handler(uint32_t pc) {
     if (gpio_event_detected(in_pin)) {
         if (!gpio_read(in_pin)) {
             n_falling ++;
-            printk("Get falling edge\n");
+            // printk("Get falling edge\n");
             uint8_t buffer[9];
             int sync_success = sync_receiver(0);
             if (sync_success == 0) {
@@ -68,7 +68,7 @@ int falling_handler(uint32_t pc) {
             }
             recv_async(buffer, 0, 9, 1);
             Packet *p = (Packet *)buffer;
-            printk("Get command: %x, address: %x, data: %x\n", p->command, p->address, p->data);
+            // printk("Get command: %x, address: %x, data: %x\n", p->command, p->address, p->data);
             
             // Resend if command == 2
             // uint32_t data = 0x66666666;

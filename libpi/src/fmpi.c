@@ -161,3 +161,7 @@ void FMPI_Gather(void *sendbuff, int sendcount,
         send((char *)sendbuff, _root, sendcount, data_size);
     }
 }
+
+void FMPI_Barrier() {
+    sync_root_last();
+}
